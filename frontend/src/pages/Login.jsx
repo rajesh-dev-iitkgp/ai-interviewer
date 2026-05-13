@@ -1,7 +1,13 @@
 import register from "../assets/register.png";
+import login from "../assets/login.png";
 import Button from "../components/Common/Button";
+import {Eye, EyeOff} from "lucide-react"
+import { useState } from "react";
 
 const Login = () => {
+
+    const [currState, setCurrState] = useState("register");
+    const [showPassword, setShowPassword] = useState(false);
 
   return (
 
@@ -14,7 +20,7 @@ const Login = () => {
         <div className="w-1/2 overflow-hidden">
 
           <img
-            src={register}
+            src={currState === "login" ? login : register}
             alt=""
             className="w-full h-full object-cover"
           />
@@ -28,9 +34,9 @@ const Login = () => {
 
           {/* HEADING */}
 
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
 
-            Create Account
+            {currState === "login" ? "Login to your account" : "Create Account"}
 
           </h1>
 
@@ -43,6 +49,8 @@ const Login = () => {
 
           {/* FULL NAME */}
 
+          {currState === "register" && 
+
           <div className="mb-4">
 
             <label className="block text-sm font-semibold mb-2">
@@ -53,11 +61,13 @@ const Login = () => {
 
             <input
               type="text"
-              placeholder="John Doe"
+              placeholder="Your Name"
+              required
               className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
             />
 
           </div>
+         }
 
           {/* EMAIL */}
 
@@ -71,7 +81,8 @@ const Login = () => {
 
             <input
               type="email"
-              placeholder="you@example.com"
+              placeholder="Your Email"
+              required
               className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
             />
 
@@ -91,16 +102,17 @@ const Login = () => {
             <div className="flex items-center border border-gray-300 rounded-lg px-4">
 
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="********"
+                required
                 className="w-full py-3 outline-none"
               />
 
-              <span className="text-gray-500 cursor-pointer">
-
-                👁️
-
-              </span>
+              {showPassword ? 
+                <EyeOff size={20} className="text-gray-500 cursor-pointer" onClick={() => setShowPassword(false)}/>
+               : 
+                <Eye size={20} className="text-gray-500 cursor-pointer" onClick={() => setShowPassword(true)}/>
+              }
 
             </div>
 
@@ -108,6 +120,8 @@ const Login = () => {
 
 
           {/* CONFIRM PASSWORD */}
+
+          {currState === "register" &&
 
           <div className="mb-4">
 
@@ -120,28 +134,40 @@ const Login = () => {
             <div className="flex items-center border border-gray-300 rounded-lg px-4">
 
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="********"
+                required
                 className="w-full py-3 outline-none"
               />
 
-              <span className="text-gray-500 cursor-pointer">
-
-                👁️
-
-              </span>
+              {showPassword ? 
+                <EyeOff size={20} className="text-gray-500 cursor-pointer" onClick={() => setShowPassword(false)}/>
+               : 
+                <Eye size={20} className="text-gray-500 cursor-pointer" onClick={() => setShowPassword(true)}/>
+              }
 
             </div>
 
           </div>
 
+          }
+
+          {currState==="login" && 
+
+            <p className="text-sm text-blue-800 cursor-pointer mb-8 font-semibold">Forgot Password?</p>
+
+          }
+
           {/* TERMS */}
+
+          {currState === "register" &&
 
           <div className="flex items-start gap-2 mb-5 text-sm">
 
             <input
               type="checkbox"
               className="mt-1"
+              required
             />
 
             <p className="text-gray-600">
@@ -157,21 +183,23 @@ const Login = () => {
             </p>
 
           </div>
+            }
 
           {/* BUTTON */}
 
-          <Button text="Register" />
+          <Button text={currState === "login" ? "Login" : "Register"} />
 
 
           {/* LOGIN */}
 
           <p className="text-center text-gray-600 mt-5">
 
-            Already have an account?
+            {currState === "register" ? "Already have an account ?" : "Don't have an account ?"}
 
-            <span className="text-purple-600 font-semibold ml-2 cursor-pointer">
+            <span className="text-purple-600 font-semibold ml-2 cursor-pointer" 
+                onClick={() => setCurrState(currState === "login" ? "register" : "login")}>
 
-              Login
+              {currState === "register" ? "Login" : "Register"}
 
             </span>
 
