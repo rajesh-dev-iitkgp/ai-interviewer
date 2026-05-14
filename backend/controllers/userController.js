@@ -92,4 +92,15 @@ const logoutUser = async (req,res)=>{
     res.status(200).json({success:true,message:"Logout successful"})
 }
 
-export { loginUser, registerUser }
+const getCurrentUser = async (req,res)=>{
+    try {
+        const user = await userModel.findById(req.userId).select("-password")
+        res.status(200).json({success:true,user})
+    } 
+    catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,message:"Server error"})
+    }
+}
+
+export { loginUser, registerUser, logoutUser, getCurrentUser }
