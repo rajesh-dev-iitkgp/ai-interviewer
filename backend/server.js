@@ -22,7 +22,7 @@ connectDB()
 
 // routes
 
-app.use("api/user", userRouter)
+app.use("/api/user", userRouter)
 
 
 app.get("/", (req, res) => {

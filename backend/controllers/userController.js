@@ -1,5 +1,5 @@
 import userModel from "../models/userModel.js"
-import bcypt from "bcrypt"
+import bcrypt from "bcrypt"
 import validator from "validator"
 import createToken from "../utils/createToken.js"
 
@@ -77,7 +77,8 @@ const registerUser = async (req, res) => {
 
         res.status(200).json({success:true,message:"Registration successful"})
 
-    } catch (error) {
+    } 
+    catch (error) {
         console.log(error)
         return res.status(500).json({
             success: false,
