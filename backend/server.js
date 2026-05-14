@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import connectDB from "./config/connectDB.js"
+import userRouter from "./routes/userRoute.js"
 
 dotenv.config()
 
@@ -13,6 +14,11 @@ app.use(cors())
 // connection 
 
 connectDB()
+
+// routes
+
+app.use("api/user", userRouter)
+
 
 app.get("/", (req, res) => {
     console.log("API is working")
