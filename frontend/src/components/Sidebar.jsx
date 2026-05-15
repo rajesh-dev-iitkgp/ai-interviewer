@@ -1,11 +1,24 @@
 import logo from '../assets/logo.png'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {  House,History,FileText,ChartColumn,User,Settings,LogOut } from 'lucide-react'
+import { logoutUser } from '../services/authService'
+import { useContext } from 'react'
+import { UserContext } from '../context/userContext'
 
 const Sidebar = () => {
+
+  const {setUser} = useContext(UserContext)
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    await logoutUser()
+    setUser(null)
+    navigate("/login",{replace:true})
+  }
+
   return (
     <div className="bg-linear-to-b from-[#050B1A] to-[#0B1F4D] p-4 py-8 flex flex-col justify-between">
-      <div className='flex items-center gap-2'>
+      <div className='flex items-center gap-2 cursor-pointer'>
         <img src={logo} alt="" className='w-8' />
         <p className='text-white font-normal'>AI Interviewer</p>
       </div>
@@ -35,7 +48,7 @@ const Sidebar = () => {
           <p>Settings</p>
         </NavLink>
       </div>
-      <div className='text-white w-full flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-[#253666] transition-all duration-200 cursor-pointer'>
+      <div className='text-white w-full flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-[#253666] transition-all duration-200 cursor-pointer' onClick={logoutHandler}>
         <LogOut />
         <p>Logout</p>
       </div>
