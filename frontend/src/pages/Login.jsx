@@ -2,12 +2,14 @@ import register from "../assets/register.png";
 import login from "../assets/login.png";
 import Button from "../components/Common/Button";
 import {Eye, EyeOff} from "lucide-react"
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { loginUser,registerUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
 const Login = () => {
 
-    const [currState, setCurrState] = useState("register");
+    const [currState, setCurrState] = useState("login");
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [data, setData] = useState({
@@ -16,6 +18,10 @@ const Login = () => {
         password: "",
         confirmPassword: ""
     });
+
+    const {fetchUser}= useContext(UserContext);
+
+    const navigate = useNavigate();
 
     const onChangeHandler = (e) => {
         const name= e.target.name;
@@ -32,7 +38,10 @@ const Login = () => {
 
         try {
             const responseData = await loginUser(data)
-            alert(responseData.message)
+            if(responseData.success){
+              await fetchUser()
+              navigate("/")
+            }
         } catch (error) {
             alert(error.response.data.message)
         }
@@ -58,7 +67,10 @@ const Login = () => {
             }
     
             const responseData = await registerUser(data)
-            alert(responseData.message)
+            if(responseData.success){
+              await fetchUser()
+              navigate("/")
+            }
         } 
         catch (error) {
             alert(error.response.data.message)
