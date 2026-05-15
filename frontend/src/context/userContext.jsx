@@ -8,14 +8,19 @@ const UserContext = createContext();
 const UserProvider = ({children}) => {
 
     const [user,setUser] = useState(null);
+    const [loading,setLoading] = useState(true);
 
     const fetchUser = async ()=>{
+        setLoading(true);
         try {
-            const res= await getCurrentUser()
-            setUser(res.data.user);
+            const res = await getCurrentUser()
+            setUser(res.user);
         } catch (error) {
             console.log(error)
             setUser(null);
+        }
+        finally{
+            setLoading(false);
         }
     }
 
@@ -24,7 +29,7 @@ const UserProvider = ({children}) => {
     },[])
 
     return (
-        <UserContext.Provider value={{user,setUser,fetchUser}}>
+        <UserContext.Provider value={{user,setUser,fetchUser,loading}}>
             {children}
         </UserContext.Provider>
     )

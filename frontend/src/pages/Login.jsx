@@ -4,7 +4,7 @@ import Button from "../components/Common/Button";
 import {Eye, EyeOff} from "lucide-react"
 import { useState, useContext } from "react";
 import { loginUser,registerUser } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 const Login = () => {
@@ -19,7 +19,7 @@ const Login = () => {
         confirmPassword: ""
     });
 
-    const {fetchUser}= useContext(UserContext);
+    const {fetchUser,user}= useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -27,6 +27,10 @@ const Login = () => {
         const name= e.target.name;
         const value= e.target.value;
         setData((prev)=>({...prev,[name]:value}))
+    }
+
+    if(user){
+      return <Navigate to="/" replace />
     }
 
     const loginHandler = async () => {
@@ -40,7 +44,7 @@ const Login = () => {
             const responseData = await loginUser(data)
             if(responseData.success){
               await fetchUser()
-              navigate("/")
+              navigate("/",{replace:true})
             }
         } catch (error) {
             alert(error.response.data.message)
@@ -69,7 +73,7 @@ const Login = () => {
             const responseData = await registerUser(data)
             if(responseData.success){
               await fetchUser()
-              navigate("/")
+              navigate("/",{replace:true})
             }
         } 
         catch (error) {
