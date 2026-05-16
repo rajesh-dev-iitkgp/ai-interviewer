@@ -20,7 +20,7 @@ const ProtectedLayout = () => {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <main className="flex-1 p-2 bg-[#eaedf251]">
+      <main className="flex-1 p-2 bg-[#eaedf251] pl-66">
         <Outlet />
       </main>
     </div>

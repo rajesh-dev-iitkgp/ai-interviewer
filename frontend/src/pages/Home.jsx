@@ -2,6 +2,7 @@ import { BellIcon,MoveRightIcon,Brain,BarChart3,History,} from "lucide-react"
 import profile from "../assets/profile.png"
 import banner from "../assets/banner.png"
 import OverviewCard from "../components/Dashboard/OverviewCard"
+import RecentInterviewCard from "../components/Dashboard/RecentInterviewCard"
 
 const Home = () => {
   return (
@@ -58,7 +59,9 @@ const Home = () => {
         <p className="text-2xl font-semibold mb-4">Overview</p>
         <OverviewCard />
       </div>
-      <div>recent interviews</div>
+      <div>
+        <RecentInterviewCard />
+      </div>
     </div>
   )
 }

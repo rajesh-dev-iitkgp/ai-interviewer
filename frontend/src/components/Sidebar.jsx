@@ -17,7 +17,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="w-64 bg-linear-to-b from-[#050B1A] to-[#0B1F4D] p-4 py-8 flex flex-col justify-between">
+    <div className="w-64 bg-linear-to-b from-[#050B1A] to-[#0B1F4D] p-4 py-8 flex flex-col justify-between fixed top-0 left-0 h-screen">
       <div className='flex items-center gap-2 cursor-pointer'>
         <img src={logo} alt="" className='w-8' />
         <p className='text-white font-normal text-2xl'>AI Interviewer</p>
