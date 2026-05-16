@@ -20,8 +20,8 @@ const Home = () => {
           <p className="text-gray-500">Ready to improve your interview skills today?</p>
         </div>
         <div className="flex gap-4 items-center justify-center">
-          <BellIcon />
-          <img src={profile} alt="" className="h-8" />
+          <BellIcon className="cursor-pointer" onClick={()=>{navigate("/settings")}}/>
+          <img src={profile} alt="" className="h-8 cursor-pointer" onClick={()=>{navigate("/profile")}} />
         </div>
       </div>
       <div className="flex gap-4">
