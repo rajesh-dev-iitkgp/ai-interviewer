@@ -17,10 +17,10 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="bg-linear-to-b from-[#050B1A] to-[#0B1F4D] p-4 py-8 flex flex-col justify-between">
+    <div className="w-64 bg-linear-to-b from-[#050B1A] to-[#0B1F4D] p-4 py-8 flex flex-col justify-between">
       <div className='flex items-center gap-2 cursor-pointer'>
         <img src={logo} alt="" className='w-8' />
-        <p className='text-white font-normal'>AI Interviewer</p>
+        <p className='text-white font-normal text-2xl'>AI Interviewer</p>
       </div>
       <div className="flex flex-col gap-4 shadow-2xl text-white">
         <NavLink className={({isActive})=>`w-full flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-[#182446] transition-all duration-200 ${isActive && "bg-[#192b63] text-[#baaba3e9]"}}`} to="/">
