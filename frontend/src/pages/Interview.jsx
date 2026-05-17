@@ -1,6 +1,11 @@
 import Button from "../components/Common/Button"
+import { roles, techStacks } from "../utils/constants"
+import { useState } from "react"
 
 const Interview = () => {
+
+    const [selectedStacks,setSelectedStacks]=useState(["React","Node.js","MongoDB"])
+
   return (
     <div className="py-8 px-6 bg-[#f8f9ff] min-h-screen">
   
@@ -27,9 +32,9 @@ const Interview = () => {
                 <select
                     className="border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
                 >
-                    <option>Full Stack Developer</option>
-                    <option>Frontend Developer</option>
-                    <option>Backend Developer</option>
+                    {roles.map((role)=>{
+                        return <option key={role} value={role}>{role}</option>
+                    })}
                 </select>
             </div>
 
@@ -58,29 +63,40 @@ const Interview = () => {
 
             {/* Tech Stack */}
             <div className="flex flex-col gap-3">
+
                 <label className="font-semibold text-gray-700">
                     Tech Stack / Topics
                 </label>
 
+                {/* Selected Stacks */}
                 <div className="flex gap-2 flex-wrap">
 
-                    <div className="bg-violet-100 text-violet-700 px-3 py-1 rounded-lg text-sm font-medium">
-                    React <span className="cursor-pointer">X</span>
-                    </div>
+                    {selectedStacks.map((stack) => (
+                    <div
+                        key={stack}
+                        className="bg-violet-100 text-violet-700 px-3 py-1 rounded-lg text-sm font-medium flex items-center gap-2"
+                    >
+                        {stack}
 
-                    <div className="bg-violet-100 text-violet-700 px-3 py-1 rounded-lg text-sm font-medium">
-                    Node.js <span className="cursor-pointer">X</span>
+                        <button>
+                        ✕
+                        </button>
                     </div>
-
-                    <div className="bg-violet-100 text-violet-700 px-3 py-1 rounded-lg text-sm font-medium">
-                    MongoDB <span className="cursor-pointer">X</span>
-                    </div>
-
-                    <button className="text-violet-600 font-medium hover:underline">
-                    + Add more
-                    </button>
+                    ))}
 
                 </div>
+
+                {/* Select */}
+                <select
+                    className="border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
+                >
+                    <option>Add Tech Stack</option>
+
+                    {techStacks.map((stack) => (
+                    <option key={stack}>{stack}</option>
+                    ))}
+                </select>
+
             </div>
 
             {/* Questions */}
@@ -94,7 +110,6 @@ const Interview = () => {
                 >
                     <option>5 Questions</option>
                     <option>10 Questions</option>
-                    <option>15 Questions</option>
                 </select>
             </div>
 
