@@ -1,6 +1,8 @@
 import Button from "../components/Common/Button"
 import { roles, techStacks, experienceLevels,interviewTypes } from "../utils/constants"
 import { useState, } from "react"
+import { generateInterview } from "../services/interviewService"
+import { useNavigate } from "react-router-dom"
 
 const Interview = () => {
 
@@ -10,6 +12,8 @@ const Interview = () => {
     const [noOfQuestions,setNoOfQuestions]=useState(5)
     const [interviewType, setInterviewType] = useState("Technical");
 
+    const navigate = useNavigate();
+
     const data = {
         role,
         experienceLevel,
@@ -18,8 +22,10 @@ const Interview = () => {
         interviewType
     }
 
-    const submitHandler = ()=>{
-        console.log(data)
+    const submitHandler = async()=>{
+        const response = await generateInterview(data);
+        const interview = response.data.interview;
+        navigate(`/interview/${interview._id}`,{replace:true});
     }
 
 
