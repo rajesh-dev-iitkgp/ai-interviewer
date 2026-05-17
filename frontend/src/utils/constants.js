@@ -46,4 +46,8 @@ const techStacks = [
   "C++",
 ];
 
-export { roles, techStacks };
+const experienceLevels = ["Beginner", "Intermediate", "Advanced"];
+
+const interviewTypes = ["Technical", "Behavioral"];
+
+export { roles, techStacks, experienceLevels, interviewTypes };

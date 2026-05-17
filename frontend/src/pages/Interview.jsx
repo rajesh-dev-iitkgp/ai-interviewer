@@ -1,10 +1,35 @@
 import Button from "../components/Common/Button"
-import { roles, techStacks } from "../utils/constants"
-import { useState } from "react"
+import { roles, techStacks, experienceLevels,interviewTypes } from "../utils/constants"
+import { useState, } from "react"
 
 const Interview = () => {
 
     const [selectedStacks,setSelectedStacks]=useState(["React","Node.js","MongoDB"])
+    const [role,setRole]=useState("Frontend Developer")
+    const [experienceLevel,setExperienceLevel]=useState("Beginner")
+    const [noOfQuestions,setNoOfQuestions]=useState(5)
+    const [interviewType, setInterviewType] = useState("Technical");
+
+    const data = {
+        role,
+        experienceLevel,
+        selectedStacks,
+        noOfQuestions,
+        interviewType
+    }
+
+    const submitHandler = ()=>{
+        console.log(data)
+    }
+
+
+    const techStacksHandler = (e)=>{
+        const stack = e.target.value;
+        if(!selectedStacks.includes(stack) && stack !== "Add Tech Stack"){
+            setSelectedStacks([...selectedStacks,stack])
+        }
+    }
+
 
   return (
     <div className="py-8 px-6 bg-[#f8f9ff] min-h-screen">
@@ -31,6 +56,7 @@ const Interview = () => {
 
                 <select
                     className="border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
+                    onChange={(e)=>{setRole(e.target.value)}}
                 >
                     {roles.map((role)=>{
                         return <option key={role} value={role}>{role}</option>
@@ -46,17 +72,20 @@ const Interview = () => {
 
                 <div className="flex gap-3 flex-wrap">
 
-                    <button className="border border-gray-300 rounded-xl px-5 py-2 font-medium hover:border-violet-500 transition">
-                    Beginner
-                    </button>
-
-                    <button className="bg-violet-600 text-white rounded-xl px-5 py-2 font-medium shadow-sm">
-                    Intermediate
-                    </button>
-
-                    <button className="border border-gray-300 rounded-xl px-5 py-2 font-medium hover:border-violet-500 transition">
-                    Advanced
-                    </button>
+                    {experienceLevels.map((level) => (
+                        <button
+                        key={level}
+                        onClick={() => setExperienceLevel(level)}
+                        className={`px-5 py-2 rounded-xl font-medium border transition-all duration-200
+                        ${
+                            experienceLevel === level
+                            ? "bg-violet-600 text-white border-violet-600 shadow-sm"
+                            : "border-gray-300 hover:border-violet-500"
+                        }`}
+                        >
+                        {level}
+                        </button>
+                    ))}
 
                 </div>
             </div>
@@ -78,7 +107,10 @@ const Interview = () => {
                     >
                         {stack}
 
-                        <button>
+                        <button onClick={()=>
+                            setSelectedStacks(selectedStacks.filter((item) => item !== stack))
+                        }
+                        className="cursor-pointer">
                         ✕
                         </button>
                     </div>
@@ -89,6 +121,7 @@ const Interview = () => {
                 {/* Select */}
                 <select
                     className="border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
+                    onChange={techStacksHandler}
                 >
                     <option>Add Tech Stack</option>
 
@@ -107,9 +140,10 @@ const Interview = () => {
 
                 <select
                     className="border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-violet-500"
+                    onChange={(e)=>{setNoOfQuestions(e.target.value)}}
                 >
-                    <option>5 Questions</option>
-                    <option>10 Questions</option>
+                    <option value="5">5 Questions</option>
+                    <option value="10">10 Questions</option>
                 </select>
             </div>
 
@@ -121,20 +155,27 @@ const Interview = () => {
 
                 <div className="flex gap-3">
 
-                    <button className="bg-violet-600 text-white rounded-xl px-5 py-2 font-medium">
-                    Technical
-                    </button>
+                    {interviewTypes.map((type) => (
+                        <button
+                        key={type}
+                        onClick={() => setInterviewType(type)}
+                        className={`px-5 py-2 rounded-xl font-medium border transition-all duration-200
+                        ${
+                            interviewType === type
+                            ? "bg-violet-600 text-white border-violet-600"
+                            : "border-gray-300 hover:border-violet-500"
+                        }`}
+                        >
+                        {type}
+                        </button>
+                    ))}
 
-                    <button className="border border-gray-300 rounded-xl px-5 py-2 font-medium">
-                    Behavioral
-                    </button>
-
-                </div>
+                    </div>
             </div>
 
             {/* Button */}
 
-            <Button text="Generate Questions ✨"  />
+            <Button text="Generate Questions ✨" onClick={submitHandler}  />
 
         </div>
     </div>
