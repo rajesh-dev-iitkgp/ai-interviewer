@@ -1,9 +1,10 @@
 import express from "express"
-import { generateInterview, getInterviewById } from "../controllers/interviewController"
+import { generateInterview, getInterviewById } from "../controllers/interviewController.js"
+import authMiddleware from "../middlewares/authMiddleware.js"
 
 const interviewRouter = express.Router()
 
-interviewRouter.post("/generate",generateInterview)
+interviewRouter.post("/generate",authMiddleware,generateInterview)
 interviewRouter.get("/:id",getInterviewById)
 
 export default interviewRouter
