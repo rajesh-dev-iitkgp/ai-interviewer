@@ -7,6 +7,7 @@ import MyInterviews from "./pages/MyInterviews"
 import Profile from "./pages/Profile"
 import Analytics from "./pages/Analytics"
 import Settings from "./pages/Settings"
+import InterviewSession from "./pages/InterviewSession"
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/interview/:id" element={<InterviewSession />} />
         </Route>
       </Routes>
     </BrowserRouter>

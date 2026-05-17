@@ -36,7 +36,12 @@ const generateInterview = async (req, res) => {
 };
 
 const getInterviewById = async (req, res) => {
+    const interview = await interviewModel.findById(req.params.id);
 
+    res.status(200).json({
+        success: true,
+        interview,
+    });
 }
 
 export { generateInterview, getInterviewById }
