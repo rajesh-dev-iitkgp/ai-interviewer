@@ -4,6 +4,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import connectDB from "./config/connectDB.js"
 import userRouter from "./routes/userRoute.js"
+import interviewRouter from "./routes/interviewRoute.js"
 
 dotenv.config()
 
@@ -23,6 +24,7 @@ connectDB()
 // routes
 
 app.use("/api/user", userRouter)
+app.use("/api/interview", interviewRouter)
 
 
 app.get("/", (req, res) => {
