@@ -22,7 +22,7 @@ const Sidebar = () => {
         <img src={logo} alt="" className='w-8' />
         <p className='text-white font-normal text-2xl'>AI Interviewer</p>
       </div>
-      <div className="flex flex-col gap-4 shadow-2xl text-white">
+      <div className="flex flex-col gap-4 text-white">
         <NavLink className={({isActive})=>`w-full flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-[#182446] transition-all duration-200 ${isActive && "bg-[#192b63] text-[#baaba3e9]"}}`} to="/">
           <House />
           <p>Home</p>
