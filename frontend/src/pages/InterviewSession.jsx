@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom"
 import { getInterviewById } from "../services/interviewService";
 import { useEffect, useState } from "react";
+import InterviewHeader from "../components/Interview/InterviewHeader";
+import QuestionCard from "../components/Interview/QuestionCard";
+import QuestionNavigator from "../components/Interview/QuestionNavigator";
 
 
 const InterviewSession = () => {
@@ -22,14 +25,18 @@ const InterviewSession = () => {
 
 
   return (
-    <div>
-      {interview?.questions.map((question,index) =>{
-        return (<div key={index}>
-            <p>{question.question}</p>
+    <div className="min-h-screen bg-[#f5f7fb] p-6">
+        <div className="max-w-7xl mx-auto">
+            <InterviewHeader />
+            <div className="grid grid-cols-12 gap-6 mt-6">
+                <div className="col-span-9">
+                    <QuestionCard />
+                </div>
+                <div className="col-span-3">
+                    <QuestionNavigator />
+                </div>
+            </div>
         </div>
-        )
-      })
-    }
     </div>
   )
 }
