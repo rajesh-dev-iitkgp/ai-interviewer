@@ -1,4 +1,29 @@
 import interviewModel from "../models/interviewModel.js"
+import { generateQuestions } from "../services/aiService.js"
+
+const testAI = async(req,res)=>{
+
+    try{
+
+        const questions = await generateQuestions({
+            role:"Frontend Developer",
+            experienceLevel:"Fresher",
+            techStack:["React","JavaScript","CSS"]
+        })
+
+        res.json({
+            success:true,
+            questions
+        })
+
+    }catch(error){
+
+        res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
 
 const generateInterview = async (req, res) => {
 
@@ -44,4 +69,4 @@ const getInterviewById = async (req, res) => {
     });
 }
 
-export { generateInterview, getInterviewById }
+export { generateInterview, getInterviewById, testAI };
