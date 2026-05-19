@@ -17,7 +17,7 @@ const Interview = () => {
     const data = {
         role,
         experienceLevel,
-        selectedStacks,
+        techStack:selectedStacks,
         noOfQuestions,
         interviewType
     }

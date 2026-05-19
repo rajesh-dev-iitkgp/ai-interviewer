@@ -1,5 +1,5 @@
 import interviewModel from "../models/interviewModel.js"
-import { generateQuestions } from "../services/aiService.js"
+import generateQuestions from "../services/AiService.js"
 
 const testAI = async(req,res)=>{
 
@@ -8,7 +8,7 @@ const testAI = async(req,res)=>{
         const questions = await generateQuestions({
             role:"Frontend Developer",
             experienceLevel:"Fresher",
-            techStack:["React","JavaScript","CSS"]
+            techStack:["JavaScript","CSS"]
         })
 
         res.json({
@@ -31,17 +31,11 @@ const generateInterview = async (req, res) => {
     role,
     experienceLevel,
     techStack,
-    interviewType
+    interviewType,
+    noOfQuestions
   } = req.body;
 
-  const dummyQuestions = [
-    {
-      question: "Explain useEffect.",
-      userAnswer: "",
-      score: 0,
-      feedback: {},
-    },
-  ];
+  const questions = await generateQuestions({role,experienceLevel,techStack,interviewType,noOfQuestions});
 
   const interview = await interviewModel.create({
     userId: req.userId,
@@ -51,7 +45,7 @@ const generateInterview = async (req, res) => {
     techStack,
     interviewType,
 
-    questions: dummyQuestions,
+    questions: questions,
   });
 
   res.status(200).json({

@@ -7,16 +7,23 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 })
 
-export const generateQuestions = async (data) => {
+const generateQuestions = async (data) => {
 
   const prompt = `
-  Generate 5 interview questions.
-
+  Generate ${data.noOfQuestions} realistic technical interview questions.
   Role: ${data.role}
   Experience Level: ${data.experienceLevel}
+  Interview Type: ${data.interviewType}
 
   Tech Stack:
   ${data.techStack.join(", ")}
+
+  Rules:
+  - Questions should resemble real software company interviews
+  - Include conceptual and practical thinking
+  - Avoid overly basic textbook definitions
+  - Questions should be concise
+  - Avoid repetition
 
   Return ONLY JSON array.
 
@@ -42,3 +49,5 @@ export const generateQuestions = async (data) => {
 
   return JSON.parse(cleaned)
 }
+
+export default generateQuestions
