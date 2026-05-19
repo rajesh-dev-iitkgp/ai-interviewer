@@ -1,5 +1,5 @@
 
-const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions,answer,setAnswers,toggleReview}) => {
+const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions,answer,setAnswers,toggleReview,reviewQuestions,handleSubmitInterview}) => {
   
     const handleAnswerChange = (e)=>{
         setAnswers(prev => {
@@ -44,7 +44,7 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
 
         <div className="flex items-center justify-between mt-8">
 
-            <button className="border px-5 py-2 rounded-xl cursor-pointer hover:bg-indigo-50"
+            <button className="border border-gray-400 px-5 py-2 rounded-xl cursor-pointer hover:bg-indigo-50"
                 onClick={() => setCurrentQuestionIndex(prev=>prev-1)}
                 disabled={currentQuestionIndex===0}>
             Previous
@@ -52,15 +52,20 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
 
             <div className="flex gap-3">
 
-            <button className="border px-5 py-2 rounded-xl cursor-pointer hover:bg-indigo-50"
+            <button className={`border border-gray-400 px-5 py-2 rounded-xl cursor-pointer hover:bg-yellow-500 ${reviewQuestions.includes(currentQuestionIndex) ? 'bg-yellow-400 text-white' : ''}`}
                 onClick={() => toggleReview(currentQuestionIndex)}>
-                Mark for Review
+                {reviewQuestions.includes(currentQuestionIndex) ? 'Marked for review' : 'Mark for review'}
             </button>
 
             <button className="bg-violet-500 text-white px-5 py-2 rounded-xl cursor-pointer hover:bg-violet-600"
-                onClick={() => setCurrentQuestionIndex(prev=>prev+1)}
-                disabled={currentQuestionIndex===totalQuestions-1}>
-                Next
+                onClick={() => {
+                    if(currentQuestionIndex === totalQuestions - 1){
+                        handleSubmitInterview();
+                    } else {
+                        setCurrentQuestionIndex(prev => prev + 1);
+                    }
+                }}>
+                {currentQuestionIndex===totalQuestions-1 ? 'Submit' : 'Next'}
             </button>
 
             </div>

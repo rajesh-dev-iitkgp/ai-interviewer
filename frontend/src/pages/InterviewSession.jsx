@@ -56,7 +56,7 @@ const InterviewSession = () => {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [timeLeft]);
 
     const currentQuestion = interview?.questions[currentQuestionIndex];
 
@@ -73,6 +73,10 @@ const InterviewSession = () => {
         }
     }
 
+    const handleSubmitInterview = async()=>{
+        console.log(answers)
+    }
+
 
   if(loading) return <Loader />
   return (
@@ -82,7 +86,8 @@ const InterviewSession = () => {
                 currentQuestionIndex={currentQuestionIndex}
                 totalQuestions={interview?.questions.length}
                 role={interview?.role}
-                formattedTime={formattedTime}/>
+                formattedTime={formattedTime}
+                handleSubmitInterview={handleSubmitInterview}/>
             <div className="grid grid-cols-12 gap-6 mt-6">
                 <div className="col-span-9">
                     <QuestionCard 
@@ -92,7 +97,9 @@ const InterviewSession = () => {
                         setCurrentQuestionIndex={setCurrentQuestionIndex}
                         answer={answers[currentQuestionIndex]?.answer}
                         setAnswers={setAnswers}
-                        toggleReview={toggleReview}/>
+                        toggleReview={toggleReview}
+                        reviewQuestions={reviewQuestions}
+                        handleSubmitInterview={handleSubmitInterview}/>
                 </div>
                 <div className="col-span-3">
                     <QuestionNavigator 

@@ -1,6 +1,7 @@
 import { Clock } from "lucide-react"
 
-const InrerviewHeader = ({currentQuestionIndex, totalQuestions,role,formattedTime}) => {
+const InterviewHeader = ({currentQuestionIndex, totalQuestions,role,formattedTime,handleSubmitInterview}) => {
+
   return (
     <div className="bg-white rounded-2xl shadow-sm p-5 flex items-center justify-between">
 
@@ -21,7 +22,8 @@ const InrerviewHeader = ({currentQuestionIndex, totalQuestions,role,formattedTim
           <span>{formattedTime}</span>
         </div>
 
-        <button className="bg-red-50 text-red-500 px-4 py-2 rounded-xl border border-red-200 cursor-pointer hover:bg-red-100 transition-all duration-200">
+        <button className="bg-red-50 text-red-500 px-4 py-2 rounded-xl border border-red-200 cursor-pointer hover:bg-red-100 transition-all duration-200"
+          onClick={handleSubmitInterview}>
           End Interview
         </button>
 
@@ -31,4 +33,4 @@ const InrerviewHeader = ({currentQuestionIndex, totalQuestions,role,formattedTim
   )
 }
 
-export default InrerviewHeader
+export default InterviewHeader
