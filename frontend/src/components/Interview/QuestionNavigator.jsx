@@ -1,5 +1,5 @@
 
-const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQuestionIndex}) => {
+const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQuestionIndex, answers}) => {
 
     const questions = Array.from({ length: totalQuestions },(_, index) => index + 1)
     const legends = [
@@ -33,6 +33,8 @@ const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQues
                         ${
                             currentQuestionIndex === index
                             ? "bg-violet-500 text-white"
+                            :  answers[index]?.answer.trim() !== ""
+                            ? "bg-green-500 text-white"
                             : "bg-gray-100 hover:bg-gray-300"
                         }`}
                 onClick={() => setCurrentQuestionIndex(index)}

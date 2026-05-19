@@ -87,7 +87,8 @@ const InterviewSession = () => {
                     <QuestionNavigator 
                         totalQuestions={interview?.questions.length}
                         currentQuestionIndex={currentQuestionIndex}
-                       c setCurrentQuestionIndex={setCurrentQuestionIndex}/>
+                        setCurrentQuestionIndex={setCurrentQuestionIndex}
+                        answers={answers}/>
                 </div>
             </div>
         </div>
