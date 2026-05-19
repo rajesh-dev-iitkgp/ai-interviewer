@@ -3,6 +3,7 @@ import { roles, techStacks, experienceLevels,interviewTypes } from "../utils/con
 import { useState, } from "react"
 import { generateInterview } from "../services/interviewService"
 import { useNavigate } from "react-router-dom"
+import Loader from "../components/Common/Loader"
 
 const Interview = () => {
 
@@ -11,6 +12,7 @@ const Interview = () => {
     const [experienceLevel,setExperienceLevel]=useState("Beginner")
     const [noOfQuestions,setNoOfQuestions]=useState(5)
     const [interviewType, setInterviewType] = useState("Technical");
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
 
@@ -23,9 +25,17 @@ const Interview = () => {
     }
 
     const submitHandler = async()=>{
-        const response = await generateInterview(data);
-        const interview = response.data.interview;
-        navigate(`/interview/${interview._id}`,{replace:true});
+        try {
+            setLoading(true);
+            const response = await generateInterview(data);
+            const interview = response.data.interview;
+            navigate(`/interview/${interview._id}`,{replace:true});
+        } catch (error) {
+            console.log(error)
+        }
+        finally{
+            setLoading(false);
+        }  
     }
 
 
@@ -36,6 +46,7 @@ const Interview = () => {
         }
     }
 
+    if(loading) return <Loader />
 
   return (
     <div className="py-8 px-6 bg-[#f8f9ff] min-h-screen">
