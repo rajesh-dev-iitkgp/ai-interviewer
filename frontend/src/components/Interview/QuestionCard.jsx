@@ -1,6 +1,22 @@
 
-const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions}) => {
-  return (
+const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions,answer,setAnswers}) => {
+  
+    const handleAnswerChange = (e)=>{
+        setAnswers(prev => {
+            const updated = [...prev];
+
+            updated[currentQuestionIndex] = {
+                ...updated[currentQuestionIndex],
+                answer: e.target.value
+            };
+
+            return updated;
+        });
+    }
+
+    const wordCount =answer.trim() === "" ? 0: answer.trim().split(/\s+/).length;
+  
+    return (
     <div className="bg-white rounded-2xl shadow-sm p-6">
 
         <div className="mb-6">
@@ -16,11 +32,13 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
         <textarea
             placeholder="Type your answer here..."
             className="w-full h-80 border border-gray-400 rounded-xl p-4 outline-none resize-none focus:ring-2 focus:ring-violet-500"
+            value={answer}
+            onChange={handleAnswerChange}
         />
 
         <div className="flex justify-end mt-2">
             <p className="text-sm text-gray-400">
-            0 / 2000 words
+            {wordCount} / 200 words
             </p>
         </div>
 
