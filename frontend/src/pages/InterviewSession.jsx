@@ -14,6 +14,7 @@ const InterviewSession = () => {
     const [interview, setInterview] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [timeLeft, setTimeLeft] = useState(0);
+    const [answers, setAnswers] = useState([]);
 
     useEffect(()=>{
         const fetchInterview = async()=>{
@@ -24,6 +25,13 @@ const InterviewSession = () => {
 
                 const questionsLength = response.data.interview.questions.length;
                 setTimeLeft(questionsLength * 4 * 60);
+
+                const initialAnswers = response.data.interview.questions.map((q)=>({
+                    question:q.question,
+                    answer:"",
+                }))
+
+                setAnswers(initialAnswers);
                 
             } catch (error) {
                 console.log(error)
@@ -53,7 +61,6 @@ const InterviewSession = () => {
 
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-
     const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
 
