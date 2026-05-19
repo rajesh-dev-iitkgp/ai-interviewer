@@ -1,16 +1,16 @@
 import { Clock } from "lucide-react"
 
-const InrerviewHeader = () => {
+const InrerviewHeader = ({currentQuestionIndex, totalQuestions,role}) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm p-5 flex items-center justify-between">
 
       <div>
         <h1 className="text-xl font-semibold">
-          Frontend Developer Interview
+          {role}
         </h1>
 
         <p className="text-sm text-gray-500">
-          Question 2 of 5
+          Question {currentQuestionIndex+1} of {totalQuestions}
         </p>
       </div>
 

@@ -1,7 +1,7 @@
 
-const QuestionNavigator = () => {
+const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQuestionIndex}) => {
 
-    const questions = [1,2,3,4,5]
+    const questions = Array.from({ length: totalQuestions },(_, index) => index + 1)
     const legends = [
         {
             label: "Answered",
@@ -29,7 +29,13 @@ const QuestionNavigator = () => {
             {questions.map((q, index) => (
             <button
                 key={index}
-                className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 text-sm hover:bg-gray-300 transition-all duration-200"
+                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-200
+                        ${
+                            currentQuestionIndex === index
+                            ? "bg-violet-500 text-white"
+                            : "bg-gray-100 hover:bg-gray-300"
+                        }`}
+                onClick={() => setCurrentQuestionIndex(index)}
             >
                 {q}
             </button>
