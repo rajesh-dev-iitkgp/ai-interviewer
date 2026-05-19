@@ -1,5 +1,5 @@
 
-const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQuestionIndex, answers}) => {
+const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQuestionIndex, answers, reviewQuestions}) => {
 
     const questions = Array.from({ length: totalQuestions },(_, index) => index + 1)
     const legends = [
@@ -15,6 +15,10 @@ const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQues
             label: "Unanswered",
             color: "bg-gray-200",
         },
+        {
+        label: "Marked for review",
+        color: "bg-yellow-400"
+        }
     ]
 
   return (
@@ -33,7 +37,9 @@ const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQues
                         ${
                             currentQuestionIndex === index
                             ? "bg-violet-500 text-white"
-                            :  answers[index]?.answer.trim() !== ""
+                            : reviewQuestions.includes(index)
+                            ? "bg-yellow-400 text-white": 
+                            answers[index]?.answer.trim() !== ""
                             ? "bg-green-500 text-white"
                             : "bg-gray-100 hover:bg-gray-300"
                         }`}

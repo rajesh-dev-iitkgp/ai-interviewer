@@ -1,5 +1,5 @@
 
-const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions,answer,setAnswers}) => {
+const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions,answer,setAnswers,toggleReview}) => {
   
     const handleAnswerChange = (e)=>{
         setAnswers(prev => {
@@ -52,7 +52,8 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
 
             <div className="flex gap-3">
 
-            <button className="border px-5 py-2 rounded-xl cursor-pointer hover:bg-indigo-50">
+            <button className="border px-5 py-2 rounded-xl cursor-pointer hover:bg-indigo-50"
+                onClick={() => toggleReview(currentQuestionIndex)}>
                 Mark for Review
             </button>
 

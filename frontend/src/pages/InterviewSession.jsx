@@ -15,6 +15,7 @@ const InterviewSession = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [timeLeft, setTimeLeft] = useState(0);
     const [answers, setAnswers] = useState([]);
+    const [reviewQuestions, setReviewQuestions] = useState([]);
 
     useEffect(()=>{
         const fetchInterview = async()=>{
@@ -63,6 +64,15 @@ const InterviewSession = () => {
     const seconds = timeLeft % 60;
     const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
+    const toggleReview = (index)=>{
+        if(reviewQuestions.includes(index)){
+            setReviewQuestions(prev => prev.filter(q => q !== index));
+        }
+        else{
+            setReviewQuestions(prev => [...prev,index]);
+        }
+    }
+
 
   if(loading) return <Loader />
   return (
@@ -81,14 +91,16 @@ const InterviewSession = () => {
                         totalQuestions={interview?.questions.length}
                         setCurrentQuestionIndex={setCurrentQuestionIndex}
                         answer={answers[currentQuestionIndex]?.answer}
-                        setAnswers={setAnswers}/>
+                        setAnswers={setAnswers}
+                        toggleReview={toggleReview}/>
                 </div>
                 <div className="col-span-3">
                     <QuestionNavigator 
                         totalQuestions={interview?.questions.length}
                         currentQuestionIndex={currentQuestionIndex}
                         setCurrentQuestionIndex={setCurrentQuestionIndex}
-                        answers={answers}/>
+                        answers={answers}
+                        reviewQuestions={reviewQuestions}/>
                 </div>
             </div>
         </div>
