@@ -13,14 +13,17 @@ const InterviewSession = () => {
     const [loading, setLoading] = useState(true)
     const [interview, setInterview] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [timeLeft, setTimeLeft] = useState(0);
 
     useEffect(()=>{
         const fetchInterview = async()=>{
             try {
                 setLoading(true);
                 const response = await getInterviewById(id);
-                console.log(response)
-                setInterview(response.data.interview);
+                setInterview(response.data.interview)
+
+                const questionsLength = response.data.interview.questions.length;
+                setTimeLeft(questionsLength * 4 * 60);
                 
             } catch (error) {
                 console.log(error)
@@ -32,7 +35,26 @@ const InterviewSession = () => {
         fetchInterview();
     },[id])
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(prev => {
+                if(prev <= 1){
+                    clearInterval(timer);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
+
     const currentQuestion = interview?.questions[currentQuestionIndex];
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
 
   if(loading) return <Loader />
@@ -42,7 +64,8 @@ const InterviewSession = () => {
             <InterviewHeader 
                 currentQuestionIndex={currentQuestionIndex}
                 totalQuestions={interview?.questions.length}
-                role={interview?.role}/>
+                role={interview?.role}
+                formattedTime={formattedTime}/>
             <div className="grid grid-cols-12 gap-6 mt-6">
                 <div className="col-span-9">
                     <QuestionCard 
@@ -55,7 +78,7 @@ const InterviewSession = () => {
                     <QuestionNavigator 
                         totalQuestions={interview?.questions.length}
                         currentQuestionIndex={currentQuestionIndex}
-                        setCurrentQuestionIndex={setCurrentQuestionIndex}/>
+                       c setCurrentQuestionIndex={setCurrentQuestionIndex}/>
                 </div>
             </div>
         </div>

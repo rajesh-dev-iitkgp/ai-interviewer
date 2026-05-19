@@ -1,6 +1,6 @@
 import { Clock } from "lucide-react"
 
-const InrerviewHeader = ({currentQuestionIndex, totalQuestions,role}) => {
+const InrerviewHeader = ({currentQuestionIndex, totalQuestions,role,formattedTime}) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm p-5 flex items-center justify-between">
 
@@ -18,7 +18,7 @@ const InrerviewHeader = ({currentQuestionIndex, totalQuestions,role}) => {
 
         <div className="px-4 py-2 border border-gray-400 rounded-xl flex items-center gap-2">
           <Clock size={18} />
-          <span>08:45</span>
+          <span>{formattedTime}</span>
         </div>
 
         <button className="bg-red-50 text-red-500 px-4 py-2 rounded-xl border border-red-200 cursor-pointer hover:bg-red-100 transition-all duration-200">
