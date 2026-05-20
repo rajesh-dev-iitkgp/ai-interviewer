@@ -23,7 +23,7 @@ const generateQuestions = async (data) => {
   - Include conceptual and practical thinking
   - Avoid overly basic textbook definitions
   - Increase the difficulty level from easy to hard
-  - Avoid repetition
+  - Avoid repetition and lengthy questions
 
   Return ONLY JSON array.
 
@@ -58,8 +58,9 @@ const generateResult = async (data) => {
 
   Rules:
   -Generate the overall score for the interviewee.
-  -Also generate question wise marks with feedback like strength, weakness and ideal approach.(one each)
+  -Also generate question wise marks(maximum marks for each question is 10 )with feedback like strength, weakness and ideal approach.(one each)
   -Also give overall feedback like strength, weakness and ideal approach.(2 each)
+  -Give the total score after scaling it to 10 marks
 
   Return ONLY JSON object.
 

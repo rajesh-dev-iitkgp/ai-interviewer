@@ -5,6 +5,7 @@ import InterviewHeader from "../components/Interview/InterviewHeader";
 import QuestionCard from "../components/Interview/QuestionCard";
 import QuestionNavigator from "../components/Interview/QuestionNavigator";
 import Loader from "../components/Common/Loader";
+import { useNavigate } from "react-router-dom";
 
 
 const InterviewSession = () => {
@@ -16,6 +17,8 @@ const InterviewSession = () => {
     const [timeLeft, setTimeLeft] = useState(0);
     const [answers, setAnswers] = useState([]);
     const [reviewQuestions, setReviewQuestions] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const fetchInterview = async()=>{
@@ -75,10 +78,14 @@ const InterviewSession = () => {
 
     const handleSubmitInterview = async()=>{
         try {
+            setLoading(true);
             const response = await getResult(interview._id, answers);
-            console.log(response)
+            navigate(`/result/${response.data.interview._id}`);
         } catch (error) {
             console.log(error)
+        }
+        finally{
+            setLoading(false);
         }
     }
 
