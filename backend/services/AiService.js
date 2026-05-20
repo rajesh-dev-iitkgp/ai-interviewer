@@ -50,4 +50,54 @@ const generateQuestions = async (data) => {
   return JSON.parse(cleaned)
 }
 
-export default generateQuestions
+const generateResult = async (data) => {
+  const prompt = `
+  Generate a result for the following interview questions and answers.
+
+  Interview Questions and userAnswers: ${JSON.stringify(data)}
+
+  Rules:
+  -Generate the overall score for the interviewee.
+  -Also generate question wise marks with feedback like strength, weakness and ideal approach.(one each)
+  -Also give overall feedback like strength, weakness and ideal approach.(2 each)
+
+  Return ONLY JSON object.
+
+  Example:
+  { questions:[
+    {
+      "question":"Explain Virtual DOM",
+      "userAnswer":"",
+      "score":0,
+      "feedback":{
+        "strengths":[],
+        "weaknesses":[],
+        "idealApproach":[]
+      }
+    }
+    ]
+    totalScore:0
+    overallFeedback:{
+      strengths:[]
+      weaknesses:[]
+      idealApproach:[]
+    }
+  }
+  `
+
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: prompt,
+  })
+
+  const text = response.text
+
+  const cleaned = text
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim()
+
+  return JSON.parse(cleaned)
+}
+
+export {generateQuestions, generateResult}

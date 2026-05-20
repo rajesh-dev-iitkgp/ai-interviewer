@@ -29,7 +29,7 @@ const InterviewSession = () => {
 
                 const initialAnswers = response.data.interview.questions.map((q)=>({
                     question:q.question,
-                    answer:"",
+                    userAnswer:"",
                 }))
 
                 setAnswers(initialAnswers);
@@ -95,7 +95,7 @@ const InterviewSession = () => {
                         currentQuestionIndex={currentQuestionIndex}
                         totalQuestions={interview?.questions.length}
                         setCurrentQuestionIndex={setCurrentQuestionIndex}
-                        answer={answers[currentQuestionIndex]?.answer}
+                        userAnswer={answers[currentQuestionIndex]?.userAnswer}
                         setAnswers={setAnswers}
                         toggleReview={toggleReview}
                         reviewQuestions={reviewQuestions}

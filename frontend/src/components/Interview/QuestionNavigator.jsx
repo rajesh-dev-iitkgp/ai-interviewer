@@ -39,7 +39,7 @@ const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQues
                             ? "bg-violet-500 text-white"
                             : reviewQuestions.includes(index)
                             ? "bg-yellow-400 text-white": 
-                            answers[index]?.answer.trim() !== ""
+                            answers[index]?.userAnswer.trim() !== ""
                             ? "bg-green-500 text-white"
                             : "bg-gray-100 hover:bg-gray-300"
                         }`}

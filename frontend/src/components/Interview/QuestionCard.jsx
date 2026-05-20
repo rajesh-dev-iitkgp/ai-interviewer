@@ -1,5 +1,5 @@
 
-const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions,answer,setAnswers,toggleReview,reviewQuestions,handleSubmitInterview}) => {
+const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,totalQuestions,userAnswer,setAnswers,toggleReview,reviewQuestions,handleSubmitInterview}) => {
   
     const handleAnswerChange = (e)=>{
         setAnswers(prev => {
@@ -7,14 +7,14 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
 
             updated[currentQuestionIndex] = {
                 ...updated[currentQuestionIndex],
-                answer: e.target.value
+                userAnswer: e.target.value
             };
 
             return updated;
         });
     }
 
-    const wordCount =answer.trim() === "" ? 0: answer.trim().split(/\s+/).length;
+    const wordCount =userAnswer.trim() === "" ? 0: userAnswer.trim().split(/\s+/).length;
   
     return (
     <div className="bg-white rounded-2xl shadow-sm p-6">
@@ -32,7 +32,7 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
         <textarea
             placeholder="Type your answer here..."
             className="w-full h-80 border border-gray-400 rounded-xl p-4 outline-none resize-none focus:ring-2 focus:ring-violet-500"
-            value={answer}
+            value={userAnswer}
             onChange={handleAnswerChange}
         />
 

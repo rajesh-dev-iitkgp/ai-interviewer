@@ -1,28 +1,13 @@
 import interviewModel from "../models/interviewModel.js"
-import generateQuestions from "../services/AiService.js"
+import {generateQuestions,generateResult} from "../services/AiService.js"
 
 const testAI = async(req,res)=>{
+  const questions = [{question:"Are HTML tags case sensitive",userAnswer:"No , HTML is case insentitive"},
+    {question:"Is JavaScript case sensitive",userAnswer:"Yes"},
+  ]
 
-    try{
-
-        const questions = await generateQuestions({
-            role:"Frontend Developer",
-            experienceLevel:"Fresher",
-            techStack:["JavaScript","CSS"]
-        })
-
-        res.json({
-            success:true,
-            questions
-        })
-
-    }catch(error){
-
-        res.status(500).json({
-            success:false,
-            message:error.message
-        })
-    }
+  const result = await generateResult(questions)
+  res.status(200).json({success:true,result})
 }
 
 const generateInterview = async (req, res) => {
@@ -63,4 +48,8 @@ const getInterviewById = async (req, res) => {
     });
 }
 
-export { generateInterview, getInterviewById, testAI };
+const getResult = async (data) => {
+
+}
+
+export { generateInterview, getInterviewById, testAI, getResult };
