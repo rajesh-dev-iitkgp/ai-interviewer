@@ -1,6 +1,6 @@
 import { Check } from "lucide-react"
 
-const StrengthCard = () => {
+const StrengthCard = ({strengths}) => {
   return (
     <div className="p-5 bg-white rounded-2xl border border-gray-400 min-h-50">
 
@@ -10,19 +10,16 @@ const StrengthCard = () => {
 
       <div className="flex flex-col gap-4">
 
-        <div className="flex gap-2">
-          <Check className="text-green-500" />
-          <p className="text-md text-gray-700 wrap-break-words leading-7">
-            Good understanding of React concepts
-          </p>
-        </div>
-
-        <div className="flex gap-2">
-          <Check className="text-green-500" />
-          <p className="text-md text-gray-700 wrap-break-words leading-7">
-            Explained with clear examples
-          </p>
-        </div>
+        {strengths.map((strength,index)=>{
+            return (
+                <div className="flex gap-2 items-start" key={index}>
+                    <Check className="text-green-500" size={35}/>
+                    <p className="text-sm text-gray-700 wrap-break-words leading-6">
+                        {strength}
+                    </p>
+                </div>
+            )
+        })}
 
       </div>
 

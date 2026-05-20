@@ -1,6 +1,6 @@
 import { Check } from "lucide-react"
 
-const IdealApproachCard = () => {
+const IdealApproachCard = ({idealApproach}) => {
   return (
     <div className="p-5 bg-white rounded-2xl border border-gray-400 min-h-50">
 
@@ -9,20 +9,16 @@ const IdealApproachCard = () => {
       </h2>
 
       <div className="flex flex-col gap-4">
-
-        <div className="flex gap-2">
-          <Check className="text-blue-500" />
-          <p className="text-md text-gray-700 wrap-break-words leading-7">
-            Structure your answers better
-          </p>
-        </div>
-
-        <div className="flex gap-2">
-          <Check className="text-blue-500" />
-          <p className="text-md text-gray-700 wrap-break-words leading-7">
-            Add more real-world examples
-          </p>
-        </div>
+        {idealApproach.map((approach,index)=>{
+            return (
+                <div className="flex gap-2" key={index}>
+                    <Check className="text-blue-500" size={40} />
+                    <p className="text-sm text-gray-700 wrap-break-words leading-6">
+                        {approach}
+                    </p>
+                </div>
+            )
+        })}
 
       </div>
 

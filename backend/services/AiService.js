@@ -60,7 +60,7 @@ const generateResult = async (data) => {
   -Generate the overall score for the interviewee.
   -Also generate question wise marks(maximum marks for each question is 10 )with feedback like strength, weakness and ideal approach.(one each)
   -Also give overall feedback like strength, weakness and ideal approach.(2 each)
-  -Give the total score after scaling it to 10 marks
+  -For each feedback component give one line feedback only
 
   Return ONLY JSON object.
 
