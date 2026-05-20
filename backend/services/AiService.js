@@ -22,7 +22,7 @@ const generateQuestions = async (data) => {
   - Questions should resemble real software company interviews
   - Include conceptual and practical thinking
   - Avoid overly basic textbook definitions
-  - Questions should be concise
+  - Increase the difficulty level from easy to hard
   - Avoid repetition
 
   Return ONLY JSON array.
@@ -70,17 +70,17 @@ const generateResult = async (data) => {
       "userAnswer":"",
       "score":0,
       "feedback":{
-        "strengths":[],
-        "weaknesses":[],
-        "idealApproach":[]
+        "strengths":[only one],
+        "weaknesses":[only one],
+        "idealApproach":[only one]
       }
     }
     ]
     totalScore:0
     overallFeedback:{
-      strengths:[]
-      weaknesses:[]
-      idealApproach:[]
+      strengths:[give 2],
+      weaknesses:[give 2]
+      idealApproach:[give 2]
     }
   }
   `

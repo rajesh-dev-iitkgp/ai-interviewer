@@ -10,4 +10,9 @@ const getInterviewById = async (id) => {
     return response;
 };
 
-export { generateInterview, getInterviewById };
+const getResult = async (id, data) => {
+    const response = await api.post(`/api/interview/result/${id}`, data);
+    return response;
+};
+
+export { generateInterview, getInterviewById, getResult };

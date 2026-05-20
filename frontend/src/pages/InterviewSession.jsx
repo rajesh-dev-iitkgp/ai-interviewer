@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { getInterviewById } from "../services/interviewService";
+import { getInterviewById, getResult } from "../services/interviewService";
 import { useEffect, useState } from "react";
 import InterviewHeader from "../components/Interview/InterviewHeader";
 import QuestionCard from "../components/Interview/QuestionCard";
@@ -74,7 +74,12 @@ const InterviewSession = () => {
     }
 
     const handleSubmitInterview = async()=>{
-        console.log(answers)
+        try {
+            const response = await getResult(interview._id, answers);
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 

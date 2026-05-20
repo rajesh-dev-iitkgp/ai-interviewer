@@ -48,8 +48,25 @@ const getInterviewById = async (req, res) => {
     });
 }
 
-const getResult = async (data) => {
+const getResult = async (req, res) => {
+  try {
+    const result = await generateResult(req.body)
 
+    const interview = await interviewModel.findByIdAndUpdate(req.params.id,{
+        totalScore: result.totalScore,
+        overallFeedback: result.overallFeedback,
+        questions: result.questions
+    });
+
+    res.status(200).json({
+        success: true,
+        interview,
+    });
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({success:false,message:"Server error"})
+  }
 }
 
 export { generateInterview, getInterviewById, testAI, getResult };
