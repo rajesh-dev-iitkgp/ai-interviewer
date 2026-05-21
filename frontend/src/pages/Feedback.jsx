@@ -1,8 +1,9 @@
+import FeedbackHeader from "../components/Feedback/FeedbackHeader"
 
 const Feedback = () => {
   return (
-    <div>
-        Question wise feedback
+    <div className="bg-[#f5f7fb]">
+        <FeedbackHeader />
     </div>
   )
 }
