@@ -48,9 +48,9 @@ const FeedbackHeader = () => {
         percentColor: "text-blue-500",
     },
     ];
-    
+
   return (
-    <div className="flex flex-col px-8 py-4 gap-6">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-4">
             <div>
