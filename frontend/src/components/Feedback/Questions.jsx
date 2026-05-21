@@ -2,35 +2,8 @@ import { getStatus } from "../../utils/getStatus";
 import { getScoreColor } from "../../utils/getScoreColor";
 
 
-const Questions = () => {
-  const questions = [
-    {
-        _id: "1",
-        question: "What is React and why is it widely used in frontend development applications?",
-        score: 9,
-    },
-    {
-        _id: "2",
-        question: "Explain the Virtual DOM in React and how it improves performance compared to direct DOM manipulation.",
-        score: 6,
-    },
-    {
-        _id: "3",
-        question: "Explain useState and useEffect hooks with practical examples from real-world applications.",
-        score: 8,
-    },
-    {
-        _id: "4",
-        question: "What is JSX and how does it differ from traditional HTML templates?",
-        score: 7,
-    },
-    {
-        _id: "5",
-        question: "How does the key prop work in React lists and why is it important for rendering optimization?",
-        score: 9,
-    },
-    ];
-
+const Questions = ({ questions, currentQuestionIndex,setCurrentQuestionIndex}) => {
+  
     return (
 
     <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm col-span-2">
@@ -58,10 +31,11 @@ const Questions = () => {
                         cursor-pointer transition-all duration-200
                         hover:bg-violet-50
                         ${
-                        index === 0
+                        index === currentQuestionIndex
                             ? "bg-violet-50 border-l-4 border-l-violet-500"
                             : ""
                         }`}
+                    onClick={() => setCurrentQuestionIndex(index)}
                     >
 
                     {/* Left */}

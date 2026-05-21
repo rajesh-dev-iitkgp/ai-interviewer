@@ -1,11 +1,30 @@
 import { MoveLeft,Download,ClipboardList,CircleCheckBig,CircleMinus,CircleX,Trophy, } from "lucide-react"
+import { getStatus } from "../../utils/getStatus"
+import { useNavigate, useParams } from "react-router-dom";
 
-const FeedbackHeader = () => {
+const FeedbackHeader = ({totalScore,totalMarks,questions}) => {
+
+    const navigate = useNavigate();
+    const {id} = useParams();
+
+    const totalQuestions = questions?.length || 0;
+
+    const goodAnswers = questions?.filter(
+    (q) => getStatus(q.score) === "good"
+    ).length || 0;
+
+    const averageAnswers = questions?.filter(
+    (q) => getStatus(q.score) === "average"
+    ).length || 0;
+
+    const badAnswers = questions?.filter(
+    (q) => getStatus(q.score) === "bad"
+    ).length || 0;
 
     const stats = [
     {
         title: "Total Questions",
-        value: 5,
+        value: totalQuestions,
         percentage: "",
         icon: ClipboardList,
         iconBg: "bg-violet-100",
@@ -13,8 +32,8 @@ const FeedbackHeader = () => {
     },
     {
         title: "Good Answers",
-        value: 3,
-        percentage: "60%",
+        value: goodAnswers,
+        percentage: `${(goodAnswers/totalQuestions)*100}%`,
         icon: CircleCheckBig,
         iconBg: "bg-green-100",
         iconColor: "text-green-500",
@@ -22,8 +41,8 @@ const FeedbackHeader = () => {
     },
     {
         title: "Average Answers",
-        value: 1,
-        percentage: "20%",
+        value: averageAnswers,
+        percentage: `${(averageAnswers/totalQuestions)*100}%`,
         icon: CircleMinus,
         iconBg: "bg-yellow-100",
         iconColor: "text-yellow-500",
@@ -31,8 +50,8 @@ const FeedbackHeader = () => {
     },
     {
         title: "Improve",
-        value: 1,
-        percentage: "20%",
+        value: badAnswers,
+        percentage: `${(badAnswers/totalQuestions)*100}%`,
         icon: CircleX,
         iconBg: "bg-red-100",
         iconColor: "text-red-500",
@@ -40,8 +59,8 @@ const FeedbackHeader = () => {
     },
     {
         title: "Total Marks",
-        value: "82/100",
-        percentage: "82%",
+        value: `${totalScore}/${totalMarks}`,
+        percentage: `${(totalScore/totalMarks)*100}%`,
         icon: Trophy,
         iconBg: "bg-blue-100",
         iconColor: "text-blue-500",
@@ -49,11 +68,15 @@ const FeedbackHeader = () => {
     },
     ];
 
+    const onClickHandler = () => {
+        navigate(`/result/${id}`)
+    };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-4">
-            <div>
+            <div onClick={onClickHandler}>
                 <MoveLeft size={50} className="bg-white p-3 rounded-md cursor-pointer hover:bg-gray-400 hover:text-white transition-all duration-200"/>
             </div>
             <div className="flex flex-col items-start gap-2">
