@@ -9,6 +9,7 @@ import Analytics from "./pages/Analytics"
 import Settings from "./pages/Settings"
 import InterviewSession from "./pages/InterviewSession"
 import Result from "./pages/Result"
+import Feedback from "./pages/Feedback"
 
 function App() {
   
@@ -26,6 +27,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/interview/:id" element={<InterviewSession />} />
           <Route path="/result/:id" element={<Result />} />
+          <Route path="/feedback/:id" element={<Feedback />} />
         </Route>
       </Routes>
     </BrowserRouter>

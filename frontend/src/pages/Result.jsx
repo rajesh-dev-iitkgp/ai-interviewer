@@ -3,13 +3,14 @@ import ScoreCard from "../components/Result/ScoreCard"
 import FeedbackSection from "../components/Result/FeedbackSection"
 import Button from "../components/Common/Button"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams,useNavigate } from "react-router-dom"
 import { getInterviewById } from "../services/interviewService"
 
 const Result = () => {
 
     const {id}=useParams();
     const [interview,setInterview] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         const fetchInterview = async()=>{
@@ -23,6 +24,10 @@ const Result = () => {
         fetchInterview()
     },[id])
 
+    const onClickHandler = ()=>{
+        navigate(`/feedback/${id}`);
+    }
+
     const totalScore = interview?.totalScore;
     const totalMarks = interview?.questions?.length*10;
     const overallFeedback = interview?.overallFeedback;
@@ -34,11 +39,11 @@ const Result = () => {
         <ScoreCard 
          totalScore={totalScore}
          totalMarks={totalMarks} />
-         
+
         {overallFeedback && (
             <FeedbackSection overallFeedback={overallFeedback}/>
         )}
-          <Button text="View Question-wise Feedback" />
+          <Button text="View Question-wise Feedback" onClick={onClickHandler} />
       </div>
     </div>
   )
