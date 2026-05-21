@@ -2,7 +2,7 @@ import { MoveLeft,Download,ClipboardList,CircleCheckBig,CircleMinus,CircleX,Trop
 import { getStatus } from "../../utils/getStatus"
 import { useNavigate, useParams } from "react-router-dom";
 
-const FeedbackHeader = ({totalScore,totalMarks,questions}) => {
+const FeedbackHeader = ({totalScore,totalMarks,questions,handleDownloadReport}) => {
 
     const navigate = useNavigate();
     const {id} = useParams();
@@ -84,9 +84,12 @@ const FeedbackHeader = ({totalScore,totalMarks,questions}) => {
                 <p className="text-gray-500">Detailed Feedback for each question in your Interview</p>
             </div>
         </div>
-        <div className="flex bg-white gap-2 border border-blue-300 p-3 rounded-2xl hover:bg-blue-100 transition-all duration-200 cursor-pointer">
+        <div className="flex bg-white gap-2 border border-blue-300 p-3 rounded-2xl hover:bg-blue-100 transition-all duration-200 cursor-pointer"
+            onClick={handleDownloadReport}>
             <Download className="text-blue-400" />
-            <p className="text-blue-500">Download Report</p>
+            <p className="text-blue-500">
+                Download Report
+            </p>
         </div>
       </div>
       {/* Stats section */}
