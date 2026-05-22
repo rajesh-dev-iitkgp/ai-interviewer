@@ -6,11 +6,34 @@ import RecentInterviewCard from "../components/Dashboard/RecentInterviewCard"
 import { useContext } from "react"
 import { UserContext } from "../context/userContext"
 import { useNavigate } from "react-router-dom"
+import { getOverview } from "../services/analyticsService"
+import { useEffect,useState } from "react"
+import Loader from "../components/Common/Loader"
 
 const Home = () => {
 
   const {user}=useContext(UserContext)
   const navigate=useNavigate()
+  const [overview,setOverview]=useState({})
+  const [loading,setLoading]=useState(true)
+
+  useEffect(() => {
+    const fetchOverview = async () => {
+      try {
+        setLoading(true);
+        const response = await getOverview();
+        setOverview(response.data.overview);
+      } catch (error) {
+        console.log(error);
+      }
+      finally{
+        setLoading(false);
+      }
+    };
+    fetchOverview();
+  }, []);
+
+  if(loading) return <Loader />
 
   return (
     <div className="p-4 flex flex-col gap-6">
@@ -66,7 +89,7 @@ const Home = () => {
       
       <div>
         <p className="text-2xl font-semibold mb-4">Overview</p>
-        <OverviewCard />
+        <OverviewCard overview={overview} />
       </div>
       <div>
         <RecentInterviewCard />
