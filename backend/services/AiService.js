@@ -102,42 +102,4 @@ const generateResult = async (data) => {
   return JSON.parse(cleaned)
 }
 
-const generateOverview = async (data) => {
-  const prompt = `
-  Generate the overall stats for the following overall interviews history
-
-  Interview History: ${JSON.stringify(data)}
-
-  Rules:
-  -Give improvement in percentage by analyzing all interviews
-  -Also give weakness in percentage
-  -Also give best streak by checking where there are continuous interviews everyday without any break
-  -Give average score per 50 marks
-  
-  return ONLY JSON object.
-
-  Example:
-  {
-    interviewsTaken:0,
-    average Score:0,
-    improvement:0,
-    bestStreak:0,
-    weakness:0
-  }
-  `
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents: prompt,
-  })
-
-  const text = response.text
-
-  const cleaned = text
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .trim()
-
-  return JSON.parse(cleaned)
-}
-
-export {generateQuestions, generateResult, generateOverview}
+export {generateQuestions, generateResult}

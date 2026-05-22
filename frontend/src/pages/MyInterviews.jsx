@@ -1,6 +1,6 @@
 import OverviewCard from "../components/Dashboard/OverviewCard"
 import { Search,ChevronRight,ChevronLeft} from "lucide-react"
-import { getInterviewHistory } from "../services/analyticsService";
+import { getInterviewHistory,getOverview } from "../services/analyticsService";
 import { useEffect, useState } from "react";
 import Loader from "../components/Common/Loader";
 import { iconMap } from "../utils/constants";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const MyInterviews = () => {
 
   const [interviews, setInterviews] = useState([]);
+  const [overview, setOverview] = useState({});
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [role, setRole] = useState("");
@@ -35,6 +36,22 @@ const MyInterviews = () => {
     fetchInterviewHistory();
   }, []);
 
+  useEffect(() => {
+    const fetchOverview = async () => {
+      try {
+        setLoading(true);
+        const response = await getOverview();
+        setOverview(response.data.overview);
+      } catch (error) {
+        console.log(error);
+      }
+      finally{
+        setLoading(false);
+      }
+    }
+    fetchOverview();
+  }, []);
+
   const filteredInterviews = interviews.filter((interview) => interview.role.toLowerCase().includes(role.toLowerCase()));
   const totalPages = Math.ceil(filteredInterviews.length / itemsPerPage);
   const currentInterviews = filteredInterviews.slice(startIndex, endIndex);
@@ -52,7 +69,6 @@ const MyInterviews = () => {
   };
 
   if(loading) return <Loader />;
-  if(interviews.length === 0) return <div className="flex items-center justify-center h-screen">No Interviews Found</div>
 
   return (
     <div className="flex flex-col gap-4 px-8 py-4 bg-[#f5f7fb]">
@@ -72,14 +88,15 @@ const MyInterviews = () => {
             </div>
           </div>
           <div>
-            <OverviewCard />
+            <OverviewCard overview={overview} />
           </div>
       </div>
       {/* BOTTOM PART */}
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 w-full">
         <div className="flex flex-col gap-4">
-
-          {currentInterviews.map((interview) => {
+          {filteredInterviews.length === 0 ? <div className="flex items-center justify-center h-20">No Interviews Found</div>:
+          
+          currentInterviews.map((interview) => {
             const Icon = iconMap[interview.role];
             const status = getStatus(interview.totalScore);
             const color = getScoreColor(status);
@@ -121,8 +138,8 @@ const MyInterviews = () => {
                 </div>
               </div>
             );
-          })}
-
+          })
+          }
         </div>
       </div>
       {/* PAGE NUMBERS */}

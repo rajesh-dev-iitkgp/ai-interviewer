@@ -5,4 +5,9 @@ const getInterviewHistory = async () => {
     return response;
 };
 
-export { getInterviewHistory };
+const getOverview = async () => {
+    const response = await api.get("/api/analytics/overview");
+    return response;
+};
+
+export { getInterviewHistory, getOverview };
