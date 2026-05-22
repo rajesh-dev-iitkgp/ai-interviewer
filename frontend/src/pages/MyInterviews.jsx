@@ -6,11 +6,13 @@ import Loader from "../components/Common/Loader";
 import { iconMap } from "../utils/constants";
 import { getStatus } from "../utils/getStatus";
 import { getScoreColor } from "../utils/getScoreColor";
+import { useNavigate } from "react-router-dom";
 
 const MyInterviews = () => {
 
   const [interviews, setInterviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchInterviewHistory = async () => {
@@ -30,6 +32,8 @@ const MyInterviews = () => {
 
 
   if(loading) return <Loader />;
+  if(interviews.length === 0) return <div className="flex items-center justify-center h-screen">No Interviews Found</div>
+  
   return (
     <div className="flex flex-col gap-4 px-8 py-4 bg-[#f5f7fb]">
       {/* TOP PART */}
@@ -85,10 +89,11 @@ const MyInterviews = () => {
 
                 <div className="flex items-center gap-12">
                   <p className={`text-2xl font-bold ${color}`}>
-                    {interview.totalScore}
+                    {interview.totalScore? interview.totalScore : 0}
                     <span className="text-base">/{interview.questions.length*10}</span>
                   </p>
-                  <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-100 transition-all cursor-pointer">
+                  <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-100 transition-all cursor-pointer"
+                    onClick = {()=> navigate(`/result/${interview._id}`)}>
                     View Details
                   </button>
                 </div>

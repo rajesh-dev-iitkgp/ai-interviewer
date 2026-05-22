@@ -59,7 +59,7 @@ const Questions = ({ questions, currentQuestionIndex,setCurrentQuestionIndex}) =
                         ${getScoreColor(status)}
                         `}
                     >
-                        {question.score}/10
+                        {question.score? question.score : 0}/10
                     </div>
                 </div>
                 );

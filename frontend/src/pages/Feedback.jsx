@@ -5,20 +5,30 @@ import { getInterviewById } from "../services/interviewService"
 import { useEffect,useState,useRef } from "react"
 import { useParams } from "react-router-dom"
 import jsPDF from "jspdf"
+import Loader from "../components/Common/Loader"
 
 const Feedback = () => {
 
     const {id}= useParams()
     const [interview,setInterview]= useState(null)
     const [questions,setQuestions]=useState([])
+    const [loading,setLoading]= useState(false)
     const [currentQuestionIndex,setCurrentQuestionIndex]=useState(0)
     const pdfRef = useRef()
 
     useEffect(()=>{
         const fetchInterview = async ()=>{
-            const response = await getInterviewById(id)
-            setInterview(response.data.interview)
-            setQuestions(response.data.interview.questions)
+            try {
+                setLoading(true)
+                const response = await getInterviewById(id)
+                setInterview(response.data.interview)
+                setQuestions(response.data.interview.questions)
+            } catch (error) {
+                console.log(error)
+            }
+            finally{
+                setLoading(false)
+            }
         }
         fetchInterview()
     },[id])
@@ -169,11 +179,12 @@ const Feedback = () => {
         pdf.save("Interview-Feedback.pdf");
     };
 
+    if(loading) return <Loader />
   return (
     <div className="bg-[#f5f7fb] flex flex-col gap-4 px-8 py-4"
         ref={pdfRef}>
         <FeedbackHeader 
-            totalScore={interview?.totalScore}
+            totalScore={interview?.totalScore || 0}
             totalMarks={interview?.questions.length*10}
             questions={questions}
             handleDownloadReport={handleDownloadReport} />

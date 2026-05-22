@@ -10,7 +10,7 @@ const ScoreCard = ({totalScore,totalMarks}) => {
                         <p className="text-[42px] font-semibold text-[#0f172a] mt-4"> /{totalMarks}</p>
                     </div>
                     <div className="text-gray-600 text-lg">
-                        Great Job! Keep Improving 🚀
+                        {percentage > 50? "Good Job! Keep Improving 🚀" : "You can Improve next time "}
                     </div>
                 </div>
                 <div className="w-32 h-32 rounded-full flex items-center justify-center"
