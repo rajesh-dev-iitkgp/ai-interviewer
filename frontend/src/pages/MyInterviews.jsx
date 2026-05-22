@@ -1,40 +1,35 @@
 import OverviewCard from "../components/Dashboard/OverviewCard"
-import { Search,BriefcaseBusiness,Database,Code2,ChevronRight,ChevronLeft } from "lucide-react"
+import { Search,ChevronRight,ChevronLeft} from "lucide-react"
+import { getInterviewHistory } from "../services/analyticsService";
+import { useEffect, useState } from "react";
+import Loader from "../components/Common/Loader";
+import { iconMap } from "../utils/constants";
+import { getStatus } from "../utils/getStatus";
+import { getScoreColor } from "../utils/getScoreColor";
 
 const MyInterviews = () => {
 
-  const interviews = [
-    {
-      id: 1,
-      title: "Full Stack Developer",
-      level: "Intermediate",
-      date: "May 12, 2024",
-      questions: 5,
-      score: 8.5,
-      color: "text-green-500",
-      icon: BriefcaseBusiness,
-    },
-    {
-      id: 2,
-      title: "Backend Developer (Node.js)",
-      level: "Beginner",
-      date: "May 8, 2024",
-      questions: 5,
-      score: 7.0,
-      color: "text-yellow-500",
-      icon: Database,
-    },
-    {
-      id: 3,
-      title: "Frontend Developer (React)",
-      level: "Intermediate",
-      date: "May 5, 2024",
-      questions: 6,
-      score: 6.5,
-      color: "text-orange-500",
-      icon: Code2,
-    },
-  ];
+  const [interviews, setInterviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchInterviewHistory = async () => {
+      try {
+        setLoading(true);
+        const response = await getInterviewHistory();
+        setInterviews(response.data.interviews);
+      } catch (error) {
+        console.log(error);
+      }
+      finally{
+        setLoading(false);
+      }
+    }
+    fetchInterviewHistory();
+  }, []);
+
+
+  if(loading) return <Loader />;
   return (
     <div className="flex flex-col gap-4 px-8 py-4 bg-[#f5f7fb]">
       {/* TOP PART */}
@@ -59,11 +54,13 @@ const MyInterviews = () => {
         <div className="flex flex-col gap-4">
 
           {interviews.map((interview) => {
-            const Icon = interview.icon;
+            const Icon = iconMap[interview.role];
+            const status = getStatus(interview.totalScore);
+            const color = getScoreColor(status);
 
             return (
               <div
-                key={interview.id}
+                key={interview._id}
                 className="flex items-center justify-between border border-gray-200 rounded-xl p-4 hover:border-indigo-500 transition-all duration-200"
               >
                 <div className="flex items-start gap-4">
@@ -73,23 +70,23 @@ const MyInterviews = () => {
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold text-gray-800">
-                      {interview.title}
+                      {interview.role}
                     </h2>
 
                     <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
-                      <span>{interview.level}</span>
+                      <span>{interview.experienceLevel}</span>
                       <span>•</span>
-                      <span>{interview.date}</span>
+                      <span>{interview.createdAt.split("T")[0]}</span>
                       <span>•</span>
-                      <span>{interview.questions} Questions</span>
+                      <span>{interview.questions.length} Questions</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-12">
-                  <p className={`text-2xl font-bold ${interview.color}`}>
-                    {interview.score}
-                    <span className="text-base">/10</span>
+                  <p className={`text-2xl font-bold ${color}`}>
+                    {interview.totalScore}
+                    <span className="text-base">/{interview.questions.length*10}</span>
                   </p>
                   <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-100 transition-all cursor-pointer">
                     View Details
