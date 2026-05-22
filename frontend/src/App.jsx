@@ -21,7 +21,7 @@ function App() {
         <Route element={<ProtectedLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/interview" element={<Interview />} />
-          <Route path="/history" element={<MyInterviews />} />
+          <Route path="/my-interviews" element={<MyInterviews />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
