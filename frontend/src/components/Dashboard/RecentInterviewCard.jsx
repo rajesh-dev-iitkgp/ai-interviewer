@@ -43,7 +43,7 @@ const RecentInterviewCard = () => {
             className="text-blue-400 border border-black/30 p-1 rounded-md cursor-pointer hover:bg-indigo-100 transition-all duration-200"
             onClick={()=>{navigate("/my-interviews")}}>View All</p>
       </div>
-      <div className="flex items-center justify-between p-2 rounded-md">
+      <div className="flex items-center justify-between p-2 border border-gray-300 rounded-md">
         <div className="bg-indigo-100 p-2 rounded-xl">
           <Icon className="w-7 h-7  text-indigo-600" />
         </div>
