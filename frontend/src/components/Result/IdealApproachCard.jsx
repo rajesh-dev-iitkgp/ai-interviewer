@@ -1,6 +1,8 @@
 import { Check } from "lucide-react"
 
 const IdealApproachCard = ({idealApproach}) => {
+
+    idealApproach = idealApproach.slice(0,2)
   return (
     <div className="p-5 bg-white rounded-2xl border border-gray-400 min-h-50">
 

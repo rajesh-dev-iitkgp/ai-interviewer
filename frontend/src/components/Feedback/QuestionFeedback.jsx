@@ -52,8 +52,8 @@ const QuestionFeedback = ({totalQuestions,currentQuestion,currentQuestionIndex,s
                     <p className={`
                         px-3 py-1 rounded-xl font-medium
                         ${
-                        status === "Good"? "bg-green-100 text-green-600"
-                            : status === "Average" ? "bg-yellow-100 text-yellow-600"
+                        status === "good"? "bg-green-100 text-green-600"
+                            : status === "average" ? "bg-yellow-100 text-yellow-600"
                             : "bg-red-100 text-red-600"
                         }`}>
                         {status}

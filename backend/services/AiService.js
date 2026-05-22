@@ -24,6 +24,7 @@ const generateQuestions = async (data) => {
   - Avoid overly basic textbook definitions
   - Increase the difficulty level from easy to hard
   - Avoid repetition and lengthy questions
+  - Question should not exceed 3 lines
 
   Return ONLY JSON array.
 

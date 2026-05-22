@@ -12,7 +12,11 @@ const MyInterviews = () => {
 
   const [interviews, setInterviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
+  const itemsPerPage = 4;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   useEffect(() => {
     const fetchInterviewHistory = async () => {
@@ -30,10 +34,24 @@ const MyInterviews = () => {
     fetchInterviewHistory();
   }, []);
 
+  const totalPages = Math.ceil(interviews.length / itemsPerPage);
+  const currentInterviews = interviews.slice(startIndex, endIndex);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
 
   if(loading) return <Loader />;
   if(interviews.length === 0) return <div className="flex items-center justify-center h-screen">No Interviews Found</div>
-  
+
   return (
     <div className="flex flex-col gap-4 px-8 py-4 bg-[#f5f7fb]">
       {/* TOP PART */}
@@ -57,7 +75,7 @@ const MyInterviews = () => {
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 w-full">
         <div className="flex flex-col gap-4">
 
-          {interviews.map((interview) => {
+          {currentInterviews.map((interview) => {
             const Icon = iconMap[interview.role];
             const status = getStatus(interview.totalScore);
             const color = getScoreColor(status);
@@ -105,25 +123,33 @@ const MyInterviews = () => {
       </div>
       {/* PAGE NUMBERS */}
       <div className="flex items-center justify-center gap-4 mt-8">
-        <button className="flex items-center gap-2 px-5 py-2 border bg-white border-gray-200 rounded-xl text-gray-400 font-medium hover:bg-gray-100 transition-all">
+        <button 
+          className={`flex items-center gap-2 px-5 py-2 bg-white border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-100 transition-all ${currentPage === 1 ? "pointer-events-none opacity-50" : ""}`}
+          onClick={handlePrevious}>
           <ChevronLeft className="w-4 h-4" />
           Previous
         </button>
         <div className="flex items-center gap-3">
+          {
+            Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`w-10 h-10 cursor-pointer rounded-xl ${
+                  currentPage === index + 1
+                    ? "bg-indigo-600 text-white"
+                    : "bg-white"
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))
+          }
 
-          <button className="w-10 h-10 rounded-xl bg-linear-to-b from-indigo-500 to-purple-600 text-white font-semibold shadow-md">
-            1
-          </button>
-
-          <button className="w-10 h-10 rounded-xl text-gray-700 font-semibold hover:bg-gray-100 transition-all">
-            2
-          </button>
-
-          <button className="w-10 h-10 rounded-xl text-gray-700 font-semibold hover:bg-gray-100 transition-all">
-            3
-          </button>
         </div>
-        <button className="flex items-center gap-2 px-5 bg-white py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-100 transition-all">
+        <button 
+          className={`flex items-center gap-2 px-5 bg-white py-2 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-100 transition-all ${currentPage === totalPages ? "pointer-events-none opacity-50" : ""}`}
+          onClick={handleNext}>
           Next
           <ChevronRight className="w-4 h-4" />
         </button>
