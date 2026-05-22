@@ -13,6 +13,7 @@ const MyInterviews = () => {
   const [interviews, setInterviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
   const itemsPerPage = 4;
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -34,8 +35,9 @@ const MyInterviews = () => {
     fetchInterviewHistory();
   }, []);
 
-  const totalPages = Math.ceil(interviews.length / itemsPerPage);
-  const currentInterviews = interviews.slice(startIndex, endIndex);
+  const filteredInterviews = interviews.filter((interview) => interview.role.toLowerCase().includes(role.toLowerCase()));
+  const totalPages = Math.ceil(filteredInterviews.length / itemsPerPage);
+  const currentInterviews = filteredInterviews.slice(startIndex, endIndex);
 
   const handleNext = () => {
     if (currentPage < totalPages) {
@@ -64,7 +66,9 @@ const MyInterviews = () => {
             <div className="flex items-center gap-2 px-4 py-2 border border-gray-400 rounded-xl bg-white">
               <Search />
               <input type="text" placeholder="Search Interview by Role..."
-                  className="outline-none" />
+                  className="outline-none" 
+                  value = {role}
+                  onChange={(e) => setRole(e.target.value)}/>
             </div>
           </div>
           <div>
