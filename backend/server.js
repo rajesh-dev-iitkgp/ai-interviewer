@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser"
 import connectDB from "./config/connectDB.js"
 import userRouter from "./routes/userRoute.js"
 import interviewRouter from "./routes/interviewRoute.js"
+import analyticsRouter from "./routes/analyticsRoute.js"
 
 dotenv.config()
 
@@ -25,6 +26,7 @@ connectDB()
 
 app.use("/api/user", userRouter)
 app.use("/api/interview", interviewRouter)
+app.use("/api/analytics", analyticsRouter)
 
 
 app.get("/", (req, res) => {
