@@ -59,4 +59,20 @@ const getScoreProgress = async(req,res)=>{
     }
 }
 
-export {getInterviewHistory,getOverview,getScoreProgress}
+const getSkillPerformance = async (req,res)=>{
+    try{
+        const interviews = await interviewModel.find({userId: req.userId}).select("totalScore role");
+        const performance = interviews.map(interview => ({
+            role: interview.role,
+            score: interview.totalScore
+        }))
+
+        return res.status(200).json({success:true,performance})
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,error:error.message})
+    }
+}
+
+export {getInterviewHistory,getOverview,getScoreProgress,getSkillPerformance}
