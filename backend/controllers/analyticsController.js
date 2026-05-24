@@ -36,8 +36,27 @@ const getOverview = async (req,res)=>{
     } catch (error) {
         console.log(error)
         res.status(500).json({success:false,error:error.message})
-    }
-    
+    } 
 }
 
-export {getInterviewHistory,getOverview}
+const getScoreProgress = async(req,res)=>{
+    try {
+    const interviews = await interviewModel.find({userId: req.userId}).select("totalScore createdAt").sort({createdAt:1});
+
+    const progress = interviews.map(interview => ({
+        date: new Date(interview.createdAt).toLocaleDateString("en-US",{
+            month:"short",
+            day:"numeric",
+        }),
+        score: interview.totalScore
+    }))
+
+    return res.status(200).json({success:true,progress})
+    } 
+    catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,error:error.message})
+    }
+}
+
+export {getInterviewHistory,getOverview,getScoreProgress}
