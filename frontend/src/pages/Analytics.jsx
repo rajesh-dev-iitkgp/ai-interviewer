@@ -1,11 +1,12 @@
 import OverviewCard from "../components/Dashboard/OverviewCard"
 import { useEffect,useState } from "react"
-import { getOverview } from "../services/analyticsService"
+import { getOverview, getProgress } from "../services/analyticsService"
 import Progress from "../components/Analytics/Progress"
 import Performance from "../components/Analytics/Performance"
 
 const Analytics = () => {
   const [overview,setOverview] = useState({})
+  const [progress,setProgress] = useState({})
 
   useEffect(() => {
     const fetchOverview = async () => {
@@ -17,6 +18,18 @@ const Analytics = () => {
       }
     }
     fetchOverview()
+  },[])
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const response = await getProgress();
+        setProgress(response.data.progress);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchProgress()
   },[])
 
   return (
@@ -36,8 +49,8 @@ const Analytics = () => {
         <OverviewCard overview={overview} />
       </div>
       {/* Graphs */}
-      <div>
-        <Progress />
+      <div className="grid grid-cols-2 gap-4">
+        <Progress progress={progress} />
         <Performance />
       </div>
       {/* Feedback */}

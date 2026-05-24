@@ -10,4 +10,9 @@ const getOverview = async () => {
     return response;
 };
 
-export { getInterviewHistory, getOverview };
+const getProgress = async () => {
+    const response = await api.get("/api/analytics/score-progress");
+    return response;
+};
+
+export { getInterviewHistory, getOverview, getProgress };
