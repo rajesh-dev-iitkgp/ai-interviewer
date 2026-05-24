@@ -62,6 +62,7 @@ const generateResult = async (data) => {
   -Also generate question wise marks(maximum marks for each question is 10 )with feedback like strength, weakness and ideal approach.(one each)
   -Also give overall feedback like strength, weakness and ideal approach.(2 each)
   -For each feedback component give one line feedback only
+  -Note that in each question give ideal approach as ideal answer i.e; idealApproach: [ideal answer]
 
   Return ONLY JSON object.
 

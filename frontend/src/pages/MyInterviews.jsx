@@ -138,8 +138,8 @@ const MyInterviews = () => {
                 </div>
               </div>
             );
-          })
-          }
+          })}
+
         </div>
       </div>
       {/* PAGE NUMBERS */}
