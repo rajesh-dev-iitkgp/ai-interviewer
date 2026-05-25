@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     bio:{type: String,default: "",},
     experienceLevel:{type: String,enum: ["Beginner", "Intermediate", "Advanced"],default: "Beginner"},
     profileImage:{type: String,default: ""}
-})
+},{timestamps:true})
 
 const userModel = mongoose.models.users || new mongoose.model("users",userSchema)
 

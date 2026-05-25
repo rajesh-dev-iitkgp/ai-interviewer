@@ -1,6 +1,9 @@
 import editProfile from "../assets/edit-profile.png";
 import Button from "../components/Common/Button";
-import { useState } from "react";
+import { useState,useContext,useEffect } from "react";
+import { updateUser } from "../services/authService";
+import { UserContext } from "../context/userContext";
+import Loader from "../components/Common/Loader";
 
 const Profile = () => {
   
@@ -9,6 +12,20 @@ const Profile = () => {
     bio: "",
     experienceLevel: "",
   });
+  const {user,setUser,loading} = useContext(UserContext)
+
+  useEffect(() => {
+    const fetchUser =  () => {
+      if(user){
+        setData({
+            name: user.name || "",
+            bio: user.bio || "",
+            experienceLevel: user.experienceLevel || "",
+        });
+      }
+    }
+    fetchUser();
+}, [user]);
 
   const onChangeHandler = (e) => {
     const name = e.target.name;
@@ -16,9 +33,13 @@ const Profile = () => {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const saveChangesHandler = () => {
-    console.log(data);
+  const saveChangesHandler = async () => {
+    const response = await updateUser(data);
+    setUser(response.data.user)
+    alert("Changes saved successfully");
   };
+
+  if(loading) return <Loader />
 
   return (
     <div className="bg-[#f5f7fb] rounded-2xl border border-gray-200 p-6 flex gap-6">
@@ -29,16 +50,16 @@ const Profile = () => {
                 <img src={editProfile} alt="profile" className="w-32 h-32 rounded-full" />
             </div>
             <h2 className="text-2xl font-semibold mt-5">
-                Arjun Sharma
+                {user.name}
             </h2>
             <p className="text-gray-500 text-sm mt-1">
-                arjun@example.com
+                {user.email}
             </p>
             <span className="mt-4 px-4 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-medium">
-                Intermediate
+                {user.experienceLevel}
             </span>
             <p className="text-gray-500 text-sm mt-8">
-                Member since May 1, 2024
+                Member since { user?.createdAt?.split("T")[0] || "May 1, 2023"}
             </p>
         </div>
 
@@ -69,7 +90,7 @@ const Profile = () => {
                     </label>
                     <input
                         type="email"
-                        placeholder="arjun@example.com"
+                        value={user.email}
                         className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500 pointer-events-none"
                     />
                 </div>

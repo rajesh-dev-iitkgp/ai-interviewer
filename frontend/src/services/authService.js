@@ -20,4 +20,9 @@ const getCurrentUser = async ()=>{
     return response.data
 }
 
-export {loginUser,registerUser,logoutUser,getCurrentUser}
+const updateUser = async (data)=>{
+    const response = await api.put("/api/user/update",data)
+    return response
+}
+
+export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser}
