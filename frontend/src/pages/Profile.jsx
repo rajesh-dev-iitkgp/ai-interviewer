@@ -1,7 +1,25 @@
 import editProfile from "../assets/edit-profile.png";
 import Button from "../components/Common/Button";
+import { useState } from "react";
 
 const Profile = () => {
+  
+  const [data, setData] = useState({
+    name: "",
+    bio: "",
+    experienceLevel: "",
+  });
+
+  const onChangeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const saveChangesHandler = () => {
+    console.log(data);
+  };
+
   return (
     <div className="bg-[#f5f7fb] rounded-2xl border border-gray-200 p-6 flex gap-6">
 
@@ -37,6 +55,9 @@ const Profile = () => {
                     </label>
                     <input
                         type="text"
+                        name="name"
+                        value={data.name}
+                        onChange={onChangeHandler}
                         placeholder="Arjun Sharma"
                         className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
                     />
@@ -49,7 +70,7 @@ const Profile = () => {
                     <input
                         type="email"
                         placeholder="arjun@example.com"
-                        className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
+                        className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500 pointer-events-none"
                     />
                 </div>
                 {/* Bio */}
@@ -59,6 +80,9 @@ const Profile = () => {
                     </label>
                     <textarea
                         rows={4}
+                        name="bio"
+                        value={data.bio}
+                        onChange={onChangeHandler}
                         placeholder="Aspiring Full Stack Developer passionate about building impactful products and solving real-world problems."
                         className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500 resize-none"
                     />
@@ -71,14 +95,17 @@ const Profile = () => {
 
                     <select
                         className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-purple-500"
+                        name="experienceLevel"
+                        value={data.experienceLevel}
+                        onChange={onChangeHandler}
                     >
-                        <option>Beginner</option>
-                        <option>Intermediate</option>
-                        <option>Advanced</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
                     </select>
                 </div>
                 {/* Save Button */}
-                <Button text="Save Changes"/>
+                <Button text="Save Changes" onClick={saveChangesHandler}/>
             </div>
         </div>
     </div>
