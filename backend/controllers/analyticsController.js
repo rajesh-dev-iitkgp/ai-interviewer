@@ -59,7 +59,7 @@ const getScoreProgress = async(req,res)=>{
     }
 }
 
-const getSkillPerformance = async (req,res)=>{
+const getRolePerformance = async (req,res)=>{
     try{
         const interviews = await interviewModel.find({userId: req.userId}).select("totalScore role");
         const performance = interviews.map(interview => ({
@@ -75,4 +75,4 @@ const getSkillPerformance = async (req,res)=>{
     }
 }
 
-export {getInterviewHistory,getOverview,getScoreProgress,getSkillPerformance}
+export {getInterviewHistory,getOverview,getScoreProgress,getRolePerformance}
