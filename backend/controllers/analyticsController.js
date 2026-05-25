@@ -92,4 +92,24 @@ const getRolePerformance = async (req,res)=>{
     }
 }
 
-export {getInterviewHistory,getOverview,getScoreProgress,getRolePerformance}
+const getFeedback = async (req,res)=>{
+    try{
+        const interviews = await interviewModel.find({userId: req.userId}).select("totalScore overallFeedback");
+        interviews.sort((a,b)=> b.totalScore - a.totalScore);
+        const topInterviews = interviews.slice(0,3)
+        const strengths =[]
+        const weaknesses =[]
+        topInterviews.forEach(interview => {
+            strengths.push(interview.overallFeedback.strengths[0])
+            weaknesses.push(interview.overallFeedback.weaknesses[0])
+        })
+
+        return res.status(200).json({success:true,strengths,weaknesses})
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,error:error.message})
+    }
+}
+
+export {getInterviewHistory,getOverview,getScoreProgress,getRolePerformance,getFeedback}
