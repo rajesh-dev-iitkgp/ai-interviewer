@@ -3,7 +3,10 @@ import mongoose from "mongoose"
 const userSchema = new mongoose.Schema({
     name:{type:String},
     email:{type:String,required:true,unique:true},
-    password:{type:String,required:true}
+    password:{type:String,required:true},
+    bio:{type: String,default: "",},
+    experienceLevel:{type: String,enum: ["Beginner", "Intermediate", "Advanced"],default: "Beginner"},
+    profileImage:{type: String,default: ""}
 })
 
 const userModel = mongoose.models.users || new mongoose.model("users",userSchema)
