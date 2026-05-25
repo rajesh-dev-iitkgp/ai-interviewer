@@ -103,4 +103,16 @@ const getCurrentUser = async (req,res)=>{
     }
 }
 
-export { loginUser, registerUser, logoutUser, getCurrentUser }
+const updateUser = async (req,res)=>{
+    try {
+        const updates = req.body
+        const user = await userModel.findByIdAndUpdate(req.userId,updates,{new:true}).select("-password")
+        res.status(200).json({success:true,user})
+    } 
+    catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,message:error.message})
+    }
+}
+
+export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser }
