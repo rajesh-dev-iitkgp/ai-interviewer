@@ -2,7 +2,7 @@ import { Check } from "lucide-react"
 
 const WeaknessCard = ({weaknesses}) => {
   return (
-    <div className="p-5 bg-white rounded-2xl border border-gray-400 min-h-50">
+    <div className="p-5 bg-white rounded-2xl border border-gray-400 min-h-50 col-span-1">
 
       <h2 className="text-lg font-semibold text-red-500 mb-4">
         Areas to Improve

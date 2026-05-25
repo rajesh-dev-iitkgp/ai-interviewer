@@ -2,7 +2,7 @@ import { Check } from "lucide-react"
 
 const StrengthCard = ({strengths}) => {
   return (
-    <div className="p-5 bg-white rounded-2xl border border-gray-400 min-h-50">
+    <div className="p-5 bg-white rounded-2xl border border-gray-400 min-h-50 col-span-1">
 
       <h2 className="text-lg font-semibold text-green-600 mb-4">
         Strengths

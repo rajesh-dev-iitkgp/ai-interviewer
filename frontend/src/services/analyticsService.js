@@ -20,4 +20,9 @@ const getRolePerformance = async () => {
     return response;
 };
 
-export { getInterviewHistory, getOverview, getProgress, getRolePerformance };
+const getFeedback = async () => {
+    const response = await api.get("/api/analytics/feedback");
+    return response;
+};
+
+export { getInterviewHistory, getOverview, getProgress, getRolePerformance, getFeedback };

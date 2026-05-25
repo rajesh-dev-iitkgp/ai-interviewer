@@ -1,13 +1,16 @@
 import OverviewCard from "../components/Dashboard/OverviewCard"
 import { useEffect,useState } from "react"
-import { getOverview, getProgress, getRolePerformance } from "../services/analyticsService"
+import { getOverview, getProgress, getRolePerformance, getFeedback } from "../services/analyticsService"
 import Progress from "../components/Analytics/Progress"
 import Performance from "../components/Analytics/Performance"
+import StrengthCard from "../components/Result/StrengthCard"
+import WeaknessCard from "../components/Result/WeaknessCard"
 
 const Analytics = () => {
   const [overview,setOverview] = useState({})
   const [progress,setProgress] = useState({})
   const [performance,setPerformance] = useState({})
+  const [feedback,setFeedback] = useState({})
 
   useEffect(() => {
     const fetchOverview = async () => {
@@ -45,6 +48,18 @@ const Analytics = () => {
     fetchRolePerformance()
   },[])
 
+  useEffect(() => {
+    const fetchFeedback = async () => {
+      try {
+        const response = await getFeedback();
+        setFeedback(response.data.feedback);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchFeedback()
+  },[])
+
   return (
     <div className="flex flex-col gap-4 p-4 bg-[#f5f7fb]">
       {/* Header */}
@@ -67,7 +82,10 @@ const Analytics = () => {
         <Performance performance={performance} />
       </div>
       {/* Feedback */}
-      <div></div>
+      <div className="grid grid-cols-2 gap-4">
+        <StrengthCard strengths={feedback.strengths || []} />
+        <WeaknessCard weaknesses={feedback.weaknesses || []} />
+      </div>
     </div>
   )
 }

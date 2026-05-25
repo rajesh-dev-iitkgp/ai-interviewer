@@ -96,7 +96,7 @@ const getFeedback = async (req,res)=>{
     try{
         const interviews = await interviewModel.find({userId: req.userId}).select("totalScore overallFeedback");
         interviews.sort((a,b)=> b.totalScore - a.totalScore);
-        const topInterviews = interviews.slice(0,3)
+        const topInterviews = interviews.slice(0,5)
         const strengths =[]
         const weaknesses =[]
         topInterviews.forEach(interview => {
@@ -104,7 +104,10 @@ const getFeedback = async (req,res)=>{
             weaknesses.push(interview.overallFeedback.weaknesses[0])
         })
 
-        return res.status(200).json({success:true,strengths,weaknesses})
+        const uniqueStrengths = [...new Set(strengths)].slice(0,3);
+        const uniqueWeaknesses = [...new Set(weaknesses)].slice(0,3);
+
+        return res.status(200).json({success:true,feedback:{strengths:uniqueStrengths,weaknesses:uniqueWeaknesses}})
     }
     catch (error) {
         console.log(error)
