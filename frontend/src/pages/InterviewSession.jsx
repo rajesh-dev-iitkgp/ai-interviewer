@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { getInterviewById, getResult } from "../services/interviewService";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 import InterviewHeader from "../components/Interview/InterviewHeader";
 import QuestionCard from "../components/Interview/QuestionCard";
 import QuestionNavigator from "../components/Interview/QuestionNavigator";
@@ -17,6 +17,7 @@ const InterviewSession = () => {
     const [timeLeft, setTimeLeft] = useState(0);
     const [answers, setAnswers] = useState([]);
     const [reviewQuestions, setReviewQuestions] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
 
     const navigate = useNavigate();
 
@@ -76,7 +77,10 @@ const InterviewSession = () => {
         }
     }
 
-    const handleSubmitInterview = async()=>{
+    const handleSubmitInterview = useCallback(async()=>{
+        if(submitted) return
+        setSubmitted(true);
+
         try {
             setLoading(true);
             const response = await getResult(interview._id, answers);
@@ -87,7 +91,16 @@ const InterviewSession = () => {
         finally{
             setLoading(false);
         }
-    }
+    },[submitted, interview._id, answers, navigate])
+
+    useEffect(()=>{
+        const TimeSubmitHandler = async()=>{
+            if(timeLeft === 0){
+                handleSubmitInterview(); 
+            }
+        }
+        TimeSubmitHandler();
+    },[timeLeft, handleSubmitInterview])
 
 
   if(loading) return <Loader />
