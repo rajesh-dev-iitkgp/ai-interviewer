@@ -1,9 +1,10 @@
 import editProfile from "../assets/edit-profile.png";
 import Button from "../components/Common/Button";
-import { useState,useContext,useEffect } from "react";
+import { useState,useContext,useEffect,useRef } from "react";
 import { updateUser } from "../services/authService";
 import { UserContext } from "../context/userContext";
 import Loader from "../components/Common/Loader";
+import MenuPopup from "../components/MenuPopup";
 
 const Profile = () => {
   
@@ -12,20 +13,23 @@ const Profile = () => {
     bio: "",
     experienceLevel: "",
   });
+  const [showMenu, setShowMenu] = useState(true);
+  const [profileImage, setProfileImage] = useState(editProfile);
   const {user,setUser,loading} = useContext(UserContext)
+  const inputRef = useRef();
 
   useEffect(() => {
-    const fetchUser =  () => {
-      if(user){
-        setData({
-            name: user.name || "",
-            bio: user.bio || "",
-            experienceLevel: user.experienceLevel || "",
-        });
+      const fetchUser =  () => {
+        if(user){
+          setData({
+              name: user.name || "",
+              bio: user.bio || "",
+              experienceLevel: user.experienceLevel || "",
+          });
+        }
       }
-    }
-    fetchUser();
-}, [user]);
+      fetchUser();
+  }, [user]);
 
   const onChangeHandler = (e) => {
     const name = e.target.name;
@@ -39,6 +43,15 @@ const Profile = () => {
     alert("Changes saved successfully");
   };
 
+  const imageChangeHandler = (e) => {
+      const file = e.target.files[0];
+
+      if (file) {
+          const imageUrl = URL.createObjectURL(file);
+          setProfileImage(imageUrl);
+      }
+  };
+
   if(loading) return <Loader />
 
   return (
@@ -47,7 +60,19 @@ const Profile = () => {
     {/* Left Profile Card */}
         <div className="w-65 border border-gray-200 rounded-2xl p-6 flex flex-col items-center">
             <div className="relative cursor-pointer">
-                <img src={editProfile} alt="profile" className="w-32 h-32 rounded-full" />
+                <img src={profileImage} alt="profile" className="w-32 h-32 rounded-full"
+                  onClick={() => setShowMenu(true)} />
+                <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    ref={inputRef}
+                    onChange={imageChangeHandler}
+                />
+                <MenuPopup 
+                  showMenu={showMenu}
+                  setShowMenu={setShowMenu}
+                  inputRef={inputRef}/>
             </div>
             <h2 className="text-2xl font-semibold mt-5">
                 {user.name}

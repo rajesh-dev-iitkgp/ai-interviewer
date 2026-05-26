@@ -9,8 +9,8 @@ import { UserContext } from "../context/userContext"
 
 const Analytics = () => {
   const [overview,setOverview] = useState({})
-  const [progress,setProgress] = useState({})
-  const [performance,setPerformance] = useState({})
+  const [progress,setProgress] = useState([])
+  const [performance,setPerformance] = useState([])
   const [feedback,setFeedback] = useState({})
   const {user} = useContext(UserContext)
 
