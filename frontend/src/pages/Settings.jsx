@@ -1,7 +1,13 @@
 import { UserCircle2,Lock,Bell,TriangleAlert } from "lucide-react"
 import profileIcon from "../assets/profile.png"
+import {useContext, useState} from "react"
+import { UserContext } from "../context/userContext"
+import PasswordPopup from "../components/PasswordPopup"
 
 const Settings = () => {
+  const {user} = useContext(UserContext)
+  const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+
   return (
     <div className="bg-[#f5f7fb] p-4 flex flex-col gap-4">
       {/* Header */}
@@ -33,7 +39,7 @@ const Settings = () => {
                           Full Name
                       </span>
                       <span className="text-gray-500">
-                          Rohit Sharma
+                          {user.name}
                       </span>
                   </div>
                   <div className="flex justify-between items-center border-b border-b-gray-400 pb-4">
@@ -41,7 +47,7 @@ const Settings = () => {
                           Email Address
                       </span>
                       <span className="text-gray-500">
-                          rohit@gmail.com
+                          {user.email}
                       </span>
                   </div>
                   <div className="flex justify-between items-center border-b border-b-gray-400 pb-4">
@@ -49,7 +55,7 @@ const Settings = () => {
                           Experience Level
                       </span>
                       <span className="text-gray-500">
-                          Intermediate
+                          {user.experienceLevel}
                       </span>
                   </div>
                   <div className="flex justify-between items-center">
@@ -57,7 +63,7 @@ const Settings = () => {
                           Profile Picture
                       </span>
                       <img
-                          src={profileIcon}
+                          src={user.profileImage ? `http://localhost:4000/${user.profileImage}` : profileIcon}
                           alt="profile"
                           className="w-12 h-12 rounded-full object-cover"
                       />
@@ -88,9 +94,13 @@ const Settings = () => {
                           Change your current password.
                       </p>
                   </div>
-                  <button className="px-5 py-2 rounded-xl border border-blue-500 text-blue-500 hover:bg-blue-50 transition">
+                  <button className="px-5 py-2 rounded-xl border border-blue-500 text-blue-500 hover:bg-blue-50 transition"
+                      onClick={() => setShowPasswordPopup(true)}>
                       Change Password
                   </button>
+                  <PasswordPopup 
+                    showPasswordPopup={showPasswordPopup} 
+                    setShowPasswordPopup={setShowPasswordPopup} />
               </div>
           </div>
           {/* Notifications */}
@@ -118,7 +128,12 @@ const Settings = () => {
                               Receive important updates and announcements.
                           </p>
                       </div>
-                      <input type="checkbox" checked readOnly className="w-5 h-5" />
+                      <label className="relative inline-flex items-center cursor-pointer">
+
+                        <input type="checkbox" className="sr-only peer"/>
+                        <div className="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-blue-500 transition-colors duration-300"></div>
+                        <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-6"></div>
+                    </label>
                   </div>
                   <div className="flex justify-between items-center border border-gray-400 rounded-xl p-5">
                       <div>
@@ -129,7 +144,11 @@ const Settings = () => {
                               Get reminders about upcoming interviews.
                           </p>
                       </div>
-                      <input type="checkbox" checked readOnly className="w-5 h-5" />
+                      <label className="relative inline-flex items-center cursor-pointer">
+                          <input type="checkbox" className="sr-only peer"/>
+                          <div className="w-14 h-8 bg-gray-300 rounded-full peer peer-checked:bg-blue-500 transition-colors duration-300"></div>
+                          <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform duration-300 peer-checked:translate-x-6"></div>
+                      </label>
                   </div>
               </div>
           </div>
