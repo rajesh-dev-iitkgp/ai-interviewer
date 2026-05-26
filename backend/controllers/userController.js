@@ -142,4 +142,43 @@ const updateUser = async (req,res)=>{
     }
 }
 
-export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser }
+const updatePassword = async (req,res)=>{
+    try {
+        const {currentPassword,newPassword}= req.body
+        const user = await userModel.findById(req.userId)
+
+        if(!user){
+            return res.status(400).json({success:false,message:"User not found"})
+        }
+
+        const isMatch = await bcrypt.compare(currentPassword,user.password)
+
+        if(!isMatch) {
+            return res.status(401).json({success:false,message:"Original password is incorrect"})
+        }
+
+        if(currentPassword === newPassword){
+            return res.status(400).json({
+                success:false,
+                message:"New password must be different"
+            })
+        }
+
+        if(!validator.isStrongPassword(newPassword)){
+            return res.status(400).json({success:false,message:"Password is not strong enough"})
+        }
+
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(newPassword,salt)
+
+        const updatedUser = await userModel.findByIdAndUpdate(req.userId,{password:hashedPassword},{new:true}).select("-password")
+
+        res.status(200).json({success:true,user:updatedUser})
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,message:error.message})
+    }
+}
+
+export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser, updatePassword }

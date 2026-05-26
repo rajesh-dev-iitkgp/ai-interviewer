@@ -1,5 +1,28 @@
+import {useState} from 'react'
 
 const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
+    const [data, setData] = useState({
+        email: "",
+        currentPassword: "",
+        newPassword: ""
+    });
+
+    const onChangeHandler = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const passwordUpdateHandler = async () => {
+        if (!data.email || !data.newPassword || !data.confirmNewPassword) {
+            alert("Please fill all fields");
+            return;
+        }
+        if (data.newPassword !== data.confirmNewPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+    };
 
     return (
         showPasswordPopup ?
@@ -28,6 +51,20 @@ const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
                             type="email"
                             placeholder="john@example.com"
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                            value = {data.email}
+                            onChange = {onChangeHandler}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Confirm Current Password
+                        </label>
+                        <input
+                            type="password"
+                            placeholder="Enter new password"
+                            className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                            value = {data.currentPassword}
+                            onChange = {onChangeHandler}
                         />
                     </div>
                     <div>
@@ -36,26 +73,20 @@ const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
                         </label>
                         <input
                             type="password"
-                            placeholder="Enter new password"
-                            className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Confirm New Password
-                        </label>
-                        <input
-                            type="password"
                             placeholder="Re-enter new password"
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                            value = {data.newPassword}
+                            onChange = {onChangeHandler}
                         />
                     </div>
                 </div>
                 <div className="flex gap-4 mt-8">
-                    <button className="flex-1 border border-gray-300 rounded-xl py-3 font-medium hover:bg-gray-100 transition">
+                    <button className="flex-1 border border-gray-300 rounded-xl py-3 font-medium hover:bg-gray-100 transition"
+                        onClick={() => setShowPasswordPopup(false)}>
                         Cancel
                     </button>
-                    <button className="flex-1 bg-blue-600 text-white rounded-xl py-3 font-medium hover:bg-blue-700 transition">
+                    <button className="flex-1 bg-blue-600 text-white rounded-xl py-3 font-medium hover:bg-blue-700 transition"
+                        onClick={passwordUpdateHandler}>
                         Update Password
                     </button>
                 </div>
