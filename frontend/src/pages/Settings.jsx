@@ -3,10 +3,12 @@ import profileIcon from "../assets/profile.png"
 import {useContext, useState} from "react"
 import { UserContext } from "../context/userContext"
 import PasswordPopup from "../components/PasswordPopup"
+import DeleteAccountPopup from "../components/DeleteAccountPopup"
 
 const Settings = () => {
   const {user} = useContext(UserContext)
   const [showPasswordPopup, setShowPasswordPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   return (
     <div className="bg-[#f5f7fb] p-4 flex flex-col gap-4">
@@ -176,9 +178,13 @@ const Settings = () => {
                           Once deleted, your account cannot be recovered.
                       </p>
                   </div>
-                  <button className="px-5 py-2 rounded-xl border border-red-500 text-red-500 hover:bg-red-100 transition">
+                  <button className="px-5 py-2 rounded-xl border border-red-500 text-red-500 hover:bg-red-100 transition"
+                      onClick={() => setShowDeletePopup(true)}>
                       Delete Account
                   </button>
+                  <DeleteAccountPopup 
+                    showDeletePopup={showDeletePopup} 
+                    setShowDeletePopup={setShowDeletePopup} />
               </div>
           </div>
       </div>
