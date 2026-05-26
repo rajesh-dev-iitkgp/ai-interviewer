@@ -1,5 +1,5 @@
 import { Edit2,Trash } from "lucide-react"
-const MenuPopup = ({showMenu, setShowMenu,inputRef}) => {
+const MenuPopup = ({showMenu, setShowMenu,inputRef,removeProfileHandler}) => {
 
   return (
     showMenu ? 
@@ -12,7 +12,8 @@ const MenuPopup = ({showMenu, setShowMenu,inputRef}) => {
                 <span>Edit Profile</span>
             </button>
 
-            <button className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-500 transition">
+            <button className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-500 transition"
+                onClick={removeProfileHandler}>
                 <Trash size={20}/>
                 <span>Remove Profile</span>
             </button>

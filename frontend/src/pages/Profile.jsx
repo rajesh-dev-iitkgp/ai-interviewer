@@ -13,7 +13,7 @@ const Profile = () => {
     bio: "",
     experienceLevel: "",
   });
-  const [showMenu, setShowMenu] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   const [profileImage, setProfileImage] = useState(editProfile);
   const [imageFile, setImageFile] = useState(null);
   const {user,setUser,loading} = useContext(UserContext)
@@ -27,6 +27,11 @@ const Profile = () => {
               bio: user.bio || "",
               experienceLevel: user.experienceLevel || "",
           });
+          if(user.profileImage){
+              setProfileImage(
+                  `http://localhost:4000/${user.profileImage}`
+              );
+          }
         }
       }
       fetchUser();
@@ -63,6 +68,16 @@ const Profile = () => {
       }
   };
 
+  const removeProfileHandler = async() => {
+    setProfileImage(editProfile);
+    setImageFile(null);
+    setShowMenu(false);
+    const formData = new FormData();
+    formData.append("removeProfile", "true");
+    const response = await updateUser(formData);
+    setUser(response.data.user)
+  }
+
   if(loading) return <Loader />
 
   return (
@@ -71,7 +86,7 @@ const Profile = () => {
     {/* Left Profile Card */}
         <div className="w-65 border border-gray-200 rounded-2xl p-6 flex flex-col items-center">
             <div className="relative cursor-pointer">
-                <img src={profileImage} alt="profile" className="w-32 h-32 rounded-full"
+                <img src={profileImage ? profileImage : profileImage} alt="profile" className="w-32 h-32 rounded-full"
                   onClick={() => setShowMenu(true)} />
                 <input
                     type="file"
@@ -83,6 +98,7 @@ const Profile = () => {
                 <MenuPopup 
                   showMenu={showMenu}
                   setShowMenu={setShowMenu}
+                  removeProfileHandler={removeProfileHandler}
                   inputRef={inputRef}/>
             </div>
             <h2 className="text-2xl font-semibold mt-5">

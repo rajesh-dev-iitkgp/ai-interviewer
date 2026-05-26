@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js"
 import bcrypt from "bcrypt"
 import validator from "validator"
 import createToken from "../utils/createToken.js"
-
+import fs from "fs"
 
 const loginUser = async (req, res) => {
     try {
@@ -105,12 +105,34 @@ const getCurrentUser = async (req,res)=>{
 
 const updateUser = async (req,res)=>{
     try {
-        const updates = req.body
         const image = req.file
-        const updatedData = {...updates}
-        if(image){
-            updatedData.image = image.path
+        const { removeProfile,name,bio,experienceLevel } = req.body;
+        const updatedData = {name,bio,experienceLevel}
+
+        const existingUser = await userModel.findById(req.userId)
+
+        if(removeProfile==="true"){
+            if(existingUser.profileImage){
+                fs.unlink(existingUser.profileImage,(err)=>{
+                    if(err){
+                        console.log(err)
+                    }
+                })
+            }
+            updatedData.profileImage = ""
         }
+
+        else if(image){
+            if(existingUser.profileImage){
+                fs.unlink(existingUser.profileImage, (err) => {
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            }
+            updatedData.profileImage = image.path
+        }
+
         const user = await userModel.findByIdAndUpdate(req.userId,updatedData,{new:true}).select("-password")
         res.status(200).json({success:true,user})
     } 
