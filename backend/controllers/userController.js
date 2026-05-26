@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import validator from "validator"
 import createToken from "../utils/createToken.js"
 import fs from "fs"
+import InterviewModel from "../models/interviewModel.js"
 
 const loginUser = async (req, res) => {
     try {
@@ -181,4 +182,28 @@ const updatePassword = async (req,res)=>{
     }
 }
 
-export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser, updatePassword }
+const deleteUser = async (req,res)=>{
+    try {
+        const existingUser = await userModel.findById(req.userId);
+        if(!existingUser){
+            return res.status(404).json({success:false,message:"User not found"});
+        }
+        // delete profile image
+        if(existingUser.profileImage){
+            fs.unlink(existingUser.profileImage, (err) => {
+                if(err){
+                    console.log(err);
+                }
+            });
+        }
+
+        await InterviewModel.deleteMany({userId: req.userId})
+        await userModel.findByIdAndDelete(req.userId)
+        res.status(200).json({success:true,message:"User deleted successfully"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,message:error.message})
+    }
+}
+
+export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser, updatePassword, deleteUser }

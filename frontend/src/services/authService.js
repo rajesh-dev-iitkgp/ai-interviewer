@@ -30,4 +30,9 @@ const updatePassword = async (data)=>{
     return response
 }
 
-export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser,updatePassword}
+const deleteUser = async ()=>{
+    const response = await api.delete("/api/user/delete")
+    return response
+}
+
+export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser,updatePassword,deleteUser}

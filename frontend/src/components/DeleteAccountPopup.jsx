@@ -1,6 +1,29 @@
 import { TriangleAlert } from "lucide-react"
+import { deleteUser } from "../services/authService"
+import { useNavigate } from "react-router-dom"
+import {useContext} from "react"
+import { UserContext } from "../context/userContext"
 
 const DeleteAccountPopup = ({showDeletePopup,setShowDeletePopup}) => {
+
+    const navigate = useNavigate()
+    const {setUser} = useContext(UserContext)
+
+    const handleDelete = async ()=>{
+        try{
+            const response = await deleteUser()
+            if(response.status === 200){
+                setShowDeletePopup(false)
+            }
+            setUser(null);
+            navigate("/login",{replace:true})
+        }
+        catch(error){
+            console.log(error)
+            alert(error.response.data.message)
+        }
+    }
+
   return (
     showDeletePopup ? 
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
@@ -25,7 +48,8 @@ const DeleteAccountPopup = ({showDeletePopup,setShowDeletePopup}) => {
                     onClick={() => setShowDeletePopup(false)}>
                     Cancel
                 </button>
-                <button className="flex-1 bg-red-500 text-white rounded-2xl py-3 font-medium hover:bg-red-600 transition">
+                <button className="flex-1 bg-red-500 text-white rounded-2xl py-3 font-medium hover:bg-red-600 transition"
+                    onClick={handleDelete}>
                     Yes, Delete
                 </button>
             </div>
