@@ -106,7 +106,12 @@ const getCurrentUser = async (req,res)=>{
 const updateUser = async (req,res)=>{
     try {
         const updates = req.body
-        const user = await userModel.findByIdAndUpdate(req.userId,updates,{new:true}).select("-password")
+        const image = req.file
+        const updatedData = {...updates}
+        if(image){
+            updatedData.image = image.path
+        }
+        const user = await userModel.findByIdAndUpdate(req.userId,updatedData,{new:true}).select("-password")
         res.status(200).json({success:true,user})
     } 
     catch (error) {

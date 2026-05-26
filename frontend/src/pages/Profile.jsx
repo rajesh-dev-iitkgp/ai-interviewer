@@ -15,6 +15,7 @@ const Profile = () => {
   });
   const [showMenu, setShowMenu] = useState(true);
   const [profileImage, setProfileImage] = useState(editProfile);
+  const [imageFile, setImageFile] = useState(null);
   const {user,setUser,loading} = useContext(UserContext)
   const inputRef = useRef();
 
@@ -38,7 +39,16 @@ const Profile = () => {
   };
 
   const saveChangesHandler = async () => {
-    const response = await updateUser(data);
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("bio", data.bio);
+    formData.append("experienceLevel", data.experienceLevel);
+    if(imageFile) {
+      formData.append("image",imageFile)
+    }
+
+    const response = await updateUser(formData);
     setUser(response.data.user)
     alert("Changes saved successfully");
   };
@@ -49,6 +59,7 @@ const Profile = () => {
       if (file) {
           const imageUrl = URL.createObjectURL(file);
           setProfileImage(imageUrl);
+          setImageFile(file)
       }
   };
 
