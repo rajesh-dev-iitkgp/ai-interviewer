@@ -25,4 +25,9 @@ const updateUser = async (data)=>{
     return response
 }
 
-export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser}
+const updatePassword = async (data)=>{
+    const response = await api.put("/api/user/update-password",data)
+    return response
+}
+
+export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser,updatePassword}

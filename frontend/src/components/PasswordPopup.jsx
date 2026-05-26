@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { updatePassword } from '../services/authService';
 
 const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
     const [data, setData] = useState({
@@ -14,14 +15,27 @@ const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
     };
 
     const passwordUpdateHandler = async () => {
-        if (!data.email || !data.newPassword || !data.confirmNewPassword) {
+        if (!data.email || !data.newPassword || !data.currentPassword) {
             alert("Please fill all fields");
             return;
         }
-        if (data.newPassword !== data.confirmNewPassword) {
-            alert("Passwords do not match");
-            return;
-        }
+        
+        try {
+            const response = await updatePassword(data);
+            if (response.data.success) {
+                setShowPasswordPopup(false);
+                alert("Password updated successfully");
+                setData({
+                    email: "",
+                    currentPassword: "",
+                    newPassword: ""
+                })
+            }
+        } 
+        catch (error) {
+            console.log(error);
+            alert(error.response.data.message);
+        } 
     };
 
     return (
@@ -51,6 +65,7 @@ const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
                             type="email"
                             placeholder="john@example.com"
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                            name="email"
                             value = {data.email}
                             onChange = {onChangeHandler}
                         />
@@ -63,6 +78,7 @@ const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
                             type="password"
                             placeholder="Enter new password"
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                            name="currentPassword"
                             value = {data.currentPassword}
                             onChange = {onChangeHandler}
                         />
@@ -75,6 +91,7 @@ const PasswordPopup = ({showPasswordPopup, setShowPasswordPopup}) => {
                             type="password"
                             placeholder="Re-enter new password"
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+                            name="newPassword"
                             value = {data.newPassword}
                             onChange = {onChangeHandler}
                         />
