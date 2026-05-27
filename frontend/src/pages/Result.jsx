@@ -41,7 +41,7 @@ const Result = () => {
     if(loading) return <Loader />
     return (
     <div className="min-h-screen bg-[#f5f7fb] p-6">
-      <div className="w-5xl mx-auto flex flex-col gap-6">
+      <div className="max-w-5xl mx-auto flex flex-col gap-6">
         <Header />
         <ScoreCard 
          totalScore={totalScore || 0}

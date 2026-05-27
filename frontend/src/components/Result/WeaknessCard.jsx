@@ -12,7 +12,7 @@ const WeaknessCard = ({weaknesses}) => {
         {weaknesses.map((weakness,index)=>{
             return (
                 <div className="flex gap-2" key={index}>
-                    <Check className="text-red-500" size={40} />
+                    <Check className="text-red-500 shrink-0" size={20} />
                     <p className="text-sm text-gray-700 wrap-break-words leading-6">
                         {weakness}
                     </p>

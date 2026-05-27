@@ -9,7 +9,7 @@ const FeedbackSection = ({overallFeedback}) => {
 
 
   return (
-    <div className="grid grid-cols-3 gap-4 items-stretch">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
         <div className="w-full">
             <StrengthCard 
                 strengths={strengths}/>

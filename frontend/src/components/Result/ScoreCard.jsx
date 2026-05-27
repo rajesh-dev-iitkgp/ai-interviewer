@@ -6,18 +6,18 @@ const ScoreCard = ({totalScore,totalMarks}) => {
             <div className="flex items-center justify-center gap-20">
                 <div className="flex flex-col items-center gap-0">
                     <div className="flex items-center gap-2">
-                        <h1 className="text-[56px] font-bold text-green-500 leading-none"> {totalScore}</h1>
-                        <p className="text-[42px] font-semibold text-[#0f172a] mt-4"> /{totalMarks}</p>
+                        <h1 className="md:text-[56px] text-4xl font-bold text-green-500 leading-none"> {totalScore}</h1>
+                        <p className="md:text-[42px] text-3xl font-semibold text-[#0f172a] mt-4">/{totalMarks}</p>
                     </div>
-                    <div className="text-gray-600 text-lg">
+                    <div className="text-gray-600 text-md md:text-lg">
                         {percentage > 50? "Good Job! Keep Improving 🚀" : "You can Improve next time "}
                     </div>
                 </div>
-                <div className="w-32 h-32 rounded-full flex items-center justify-center"
+                <div className="md:w-32 md:h-32 w-24 h-24 rounded-full flex items-center justify-center shrink-0"
                     style={{ background: `conic-gradient( #22c55e ${percentage * 3.6}deg, #e5e7eb ${percentage * 3.6}deg )`}}>
 
-                    <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-                        <p className="text-4xl font-semibold text-[#0f172a]">{percentage}%</p>
+                    <div className="md:w-24 md:h-24 w-20 h-20 bg-white rounded-full flex items-center justify-center">
+                        <p className="md:text-4xl text-2xl font-semibold text-[#0f172a]">{percentage}%</p>
                     </div>
                 </div>
             </div>

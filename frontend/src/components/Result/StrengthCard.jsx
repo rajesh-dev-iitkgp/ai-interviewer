@@ -13,7 +13,7 @@ const StrengthCard = ({strengths}) => {
         {strengths.map((strength,index)=>{
             return (
                 <div className="flex gap-2 items-start" key={index}>
-                    <Check className="text-green-500" size={35}/>
+                    <Check className="text-green-500 shrink-0" size={20}/>
                     <p className="text-sm text-gray-700 wrap-break-words leading-6">
                         {strength}
                     </p>

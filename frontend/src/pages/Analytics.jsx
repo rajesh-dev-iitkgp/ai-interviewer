@@ -65,7 +65,7 @@ const Analytics = () => {
   return (
     <div className="flex flex-col gap-8 p-4 bg-[#f5f7fb]">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center items-start gap-4 justify-between">
         <div className="flex flex-col items-start justify-center gap-2">
           <h1 className="font-bold text-4xl">Analytics</h1>
           <p className="font-semibold text-gray-500">Track your progress and improve your skills</p>
@@ -79,12 +79,12 @@ const Analytics = () => {
         <OverviewCard overview={overview} />
       </div>
       {/* Graphs */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Progress progress={progress} />
         <Performance performance={performance} />
       </div>
       {/* Feedback */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <StrengthCard strengths={feedback.strengths || []} />
         <WeaknessCard weaknesses={feedback.weaknesses || []} />
       </div>

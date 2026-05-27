@@ -28,8 +28,6 @@ const Sidebar = () => {
         <h1 className="text-lg font-semibold">AI Interviewer</h1>
       </div>
       <div className='relative'
-          onMouseEnter={() => setShowListPopup(true)}
-          onMouseLeave={() => setShowListPopup(false)}
           onClick={() => setShowListPopup((prev) => !prev)}>
         <button className="text-2xl">
           ☰

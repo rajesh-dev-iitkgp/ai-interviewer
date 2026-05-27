@@ -6,7 +6,7 @@ const Questions = ({ questions, currentQuestionIndex,setCurrentQuestionIndex}) =
   
     return (
 
-    <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm col-span-2">
+    <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm md:col-span-2 order-2 md:order-1">
 
         {/* Header */}
         <div className="px-5 py-6 border-b border-gray-200">

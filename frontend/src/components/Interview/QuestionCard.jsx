@@ -42,7 +42,7 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
             </p>
         </div>
 
-        <div className="flex items-center justify-between mt-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mt-8">
 
             <button className="border border-gray-400 px-5 py-2 rounded-xl cursor-pointer hover:bg-indigo-50"
                 onClick={() => setCurrentQuestionIndex(prev=>prev-1)}
@@ -50,23 +50,23 @@ const QuestionCard = ({question,currentQuestionIndex,setCurrentQuestionIndex,tot
             Previous
             </button>
 
-            <div className="flex gap-3">
+            <div className="flex flex-col md:flex-row gap-3">
 
-            <button className={`border border-gray-400 px-5 py-2 rounded-xl cursor-pointer hover:bg-yellow-500 ${reviewQuestions.includes(currentQuestionIndex) ? 'bg-yellow-400 text-white' : ''}`}
-                onClick={() => toggleReview(currentQuestionIndex)}>
-                {reviewQuestions.includes(currentQuestionIndex) ? 'Marked for review' : 'Mark for review'}
-            </button>
+                <button className={`border border-gray-400 px-5 py-2 rounded-xl cursor-pointer hover:bg-yellow-500 ${reviewQuestions.includes(currentQuestionIndex) ? 'bg-yellow-400 text-white' : ''}`}
+                    onClick={() => toggleReview(currentQuestionIndex)}>
+                    {reviewQuestions.includes(currentQuestionIndex) ? 'Marked for review' : 'Mark for review'}
+                </button>
 
-            <button className="bg-violet-500 text-white px-5 py-2 rounded-xl cursor-pointer hover:bg-violet-600"
-                onClick={() => {
-                    if(currentQuestionIndex === totalQuestions - 1){
-                        handleSubmitInterview();
-                    } else {
-                        setCurrentQuestionIndex(prev => prev + 1);
-                    }
-                }}>
-                {currentQuestionIndex===totalQuestions-1 ? 'Submit' : 'Next'}
-            </button>
+                <button className="bg-violet-500 text-white px-5 py-2 rounded-xl cursor-pointer hover:bg-violet-600"
+                    onClick={() => {
+                        if(currentQuestionIndex === totalQuestions - 1){
+                            handleSubmitInterview();
+                        } else {
+                            setCurrentQuestionIndex(prev => prev + 1);
+                        }
+                    }}>
+                    {currentQuestionIndex===totalQuestions-1 ? 'Submit' : 'Next'}
+                </button>
 
             </div>
 

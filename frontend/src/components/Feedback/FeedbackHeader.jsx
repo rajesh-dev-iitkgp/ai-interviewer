@@ -74,13 +74,13 @@ const FeedbackHeader = ({totalScore,totalMarks,questions,handleDownloadReport}) 
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center justify-center gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex items-start gap-4">
             <div onClick={onClickHandler}>
                 <MoveLeft size={50} className="bg-white p-3 rounded-md cursor-pointer hover:bg-gray-400 hover:text-white transition-all duration-200"/>
             </div>
             <div className="flex flex-col items-start gap-2">
-                <div className="text-4xl font-semibold">Question-wise Feedback </div>
+                <div className="md:text-4xl text-2xl font-semibold">Question-wise Feedback </div>
                 <p className="text-gray-500">Detailed Feedback for each question in your Interview</p>
             </div>
         </div>

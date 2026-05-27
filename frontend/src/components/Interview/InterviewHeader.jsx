@@ -3,7 +3,7 @@ import { Clock } from "lucide-react"
 const InterviewHeader = ({currentQuestionIndex, totalQuestions,role,formattedTime,handleSubmitInterview}) => {
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-5 flex items-center justify-between">
+    <div className="bg-white rounded-2xl shadow-sm p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
 
       <div>
         <h1 className="text-xl font-semibold">
@@ -15,7 +15,7 @@ const InterviewHeader = ({currentQuestionIndex, totalQuestions,role,formattedTim
         </p>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
 
         <div className="px-4 py-2 border border-gray-400 rounded-xl flex items-center gap-2">
           <Clock size={18} />

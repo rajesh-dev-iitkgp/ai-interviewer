@@ -81,10 +81,10 @@ const Profile = () => {
   if(loading) return <Loader />
 
   return (
-    <div className="bg-[#f5f7fb] rounded-2xl border border-gray-200 p-6 flex gap-6">
+    <div className="bg-[#f5f7fb] rounded-2xl border border-gray-200 p-6 flex md:flex-row flex-col items-center gap-6">
 
     {/* Left Profile Card */}
-        <div className="w-65 border border-gray-200 rounded-2xl p-6 flex flex-col items-center">
+        <div className="w-full md:w-65 border border-gray-200 rounded-2xl p-6 flex flex-col items-center">
             <div className="relative cursor-pointer">
                 <img src={profileImage ? profileImage : profileImage} alt="profile" className="w-32 h-32 rounded-full"
                   onClick={() => setShowMenu(true)} />
@@ -116,7 +116,7 @@ const Profile = () => {
         </div>
 
         {/* Right Form Section */}
-        <div className="flex-1 border border-gray-200 rounded-2xl p-6">
+        <div className="flex-1 border border-gray-200 rounded-2xl p-6 w-full">
             <h2 className="text-xl font-semibold mb-6">
                 Personal Information
             </h2>

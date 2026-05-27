@@ -79,6 +79,7 @@ const InterviewSession = () => {
 
     const handleSubmitInterview = useCallback(async()=>{
         if(submitted) return
+        if (!interview?._id) return;
         setSubmitted(true);
 
         try {
@@ -91,7 +92,7 @@ const InterviewSession = () => {
         finally{
             setLoading(false);
         }
-    },[submitted, interview._id, answers, navigate])
+    },[submitted, interview, answers, navigate])
 
     useEffect(()=>{
         const TimeSubmitHandler = async()=>{
@@ -105,7 +106,7 @@ const InterviewSession = () => {
 
   if(loading) return <Loader />
   return (
-    <div className="min-h-screen bg-[#f5f7fb] p-6">
+    <div className="min-h-screen bg-[#f5f7fb] p-2 md:p-6">
         <div className="max-w-7xl mx-auto">
             <InterviewHeader 
                 currentQuestionIndex={currentQuestionIndex}
@@ -113,8 +114,8 @@ const InterviewSession = () => {
                 role={interview?.role}
                 formattedTime={formattedTime}
                 handleSubmitInterview={handleSubmitInterview}/>
-            <div className="grid grid-cols-12 gap-6 mt-6">
-                <div className="col-span-9">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-6">
+                <div className="md:col-span-9 ">
                     <QuestionCard 
                         question={currentQuestion}
                         currentQuestionIndex={currentQuestionIndex}
@@ -126,7 +127,7 @@ const InterviewSession = () => {
                         reviewQuestions={reviewQuestions}
                         handleSubmitInterview={handleSubmitInterview}/>
                 </div>
-                <div className="col-span-3">
+                <div className="md:col-span-3">
                     <QuestionNavigator 
                         totalQuestions={interview?.questions.length}
                         currentQuestionIndex={currentQuestionIndex}

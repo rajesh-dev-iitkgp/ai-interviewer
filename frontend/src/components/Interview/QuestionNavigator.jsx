@@ -28,12 +28,12 @@ const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQues
             Questions
         </h3>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap md:flex-col gap-3">
 
             {questions.map((q, index) => (
             <button
                 key={index}
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-sm transition-all duration-200
+                className={`w-10 h-10 rounded-full md:flex md:items-center md:justify-center text-sm transition-all duration-200
                         ${
                             currentQuestionIndex === index
                             ? "bg-violet-500 text-white"
@@ -51,7 +51,7 @@ const QuestionNavigator = ({currentQuestionIndex, totalQuestions, setCurrentQues
 
         </div>
 
-        <div className="mt-8 flex flex-col gap-3">
+        <div className="grid grid-cols-2 mt-8 md:flex md:flex-col gap-3">
 
             {legends.map((item, index) => (
                 <div
