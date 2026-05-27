@@ -1,13 +1,16 @@
 import logo from '../assets/logo.png'
 import { NavLink, useNavigate } from 'react-router-dom'
-import {  House,History,FileText,ChartColumn,User,Settings,LogOut } from 'lucide-react'
+import {  House,History,FileText,ChartColumn,User,Settings,LogOut} from 'lucide-react'
 import { logoutUser } from '../services/authService'
 import { useContext } from 'react'
 import { UserContext } from '../context/userContext'
+import { useState } from 'react'
+import ListPopup from './ListPopup'
 
 const Sidebar = () => {
 
   const {setUser} = useContext(UserContext)
+  const [showListPopup, setShowListPopup] = useState(false)
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
@@ -17,7 +20,25 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="w-64 bg-linear-to-b from-[#050B1A] to-[#0B1F4D] p-4 py-8 flex flex-col justify-between fixed top-0 left-0 h-screen">
+    <>
+    <div className="md:hidden flex items-center justify-between p-4 bg-[#050B1A] text-white">
+      <div className='flex items-center gap-2 cursor-pointer'
+        onClick={() => navigate("/")}>
+        <img src={logo} alt="" className='w-8' />
+        <h1 className="text-lg font-semibold">AI Interviewer</h1>
+      </div>
+      <div className='relative'
+          onMouseEnter={() => setShowListPopup(true)}
+          onMouseLeave={() => setShowListPopup(false)}
+          onClick={() => setShowListPopup((prev) => !prev)}>
+        <button className="text-2xl">
+          ☰
+        </button>
+        <ListPopup showListPopup={showListPopup} />
+      </div>
+    </div>
+
+    <div className="hidden w-64 bg-linear-to-b from-[#050B1A] to-[#0B1F4D] p-4 py-8 md:flex flex-col justify-between fixed top-0 left-0 h-screen">
       <div className='flex items-center gap-2 cursor-pointer'
         onClick={() => navigate("/")}>
         <img src={logo} alt="" className='w-8' />
@@ -54,7 +75,7 @@ const Sidebar = () => {
         <p>Logout</p>
       </div>
     </div>
-    
+    </>
   )
 }
 

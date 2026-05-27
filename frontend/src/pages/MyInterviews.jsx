@@ -74,7 +74,7 @@ const MyInterviews = () => {
     <div className="flex flex-col gap-4 px-8 py-4 bg-[#f5f7fb]">
       {/* TOP PART */}
       <div className="flex flex-col gap-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="flex flex-col items-start justify-center gap-2">
               <h1 className="font-bold text-4xl">Interview History</h1>
               <p className="font-semibold text-gray-500">View all your previous mock interviews</p>
@@ -104,9 +104,8 @@ const MyInterviews = () => {
             return (
               <div
                 key={interview._id}
-                className="flex items-center justify-between border border-gray-200 rounded-xl p-4 hover:border-indigo-500 transition-all duration-200"
-              >
-                <div className="flex items-start gap-4">
+                className="flex flex-col gap-2 md:flex-row items-center justify-between border border-gray-200 rounded-xl p-4 hover:border-indigo-500 transition-all duration-200">
+                <div className="flex items-center md:items-start gap-4">
                   
                   <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center">
                     <Icon className="w-6 h-6 text-indigo-600" />
@@ -116,7 +115,7 @@ const MyInterviews = () => {
                       {interview.role}
                     </h2>
 
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                    <div className="hidden md:flex items-center gap-2 text-sm text-gray-500 mt-1">
                       <span>{interview.experienceLevel}</span>
                       <span>•</span>
                       <span>{interview.createdAt.split("T")[0]}</span>

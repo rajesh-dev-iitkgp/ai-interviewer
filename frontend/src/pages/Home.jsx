@@ -9,12 +9,14 @@ import { useNavigate } from "react-router-dom"
 import { getOverview } from "../services/analyticsService"
 import { useEffect,useState } from "react"
 import Loader from "../components/Common/Loader"
+import ListPopup from "../components/ListPopup"
 
 const Home = () => {
 
   const {user}=useContext(UserContext)
   const navigate=useNavigate()
   const [overview,setOverview]=useState({})
+  const [showListPopup,setShowListPopup]=useState(false)
   const [loading,setLoading]=useState(true)
 
   useEffect(() => {
@@ -42,16 +44,23 @@ const Home = () => {
           <h1 className="font-bold text-2xl">Hello, {user.name} 👋</h1>
           <p className="text-gray-500">Ready to improve your interview skills today?</p>
         </div>
-        <div className="flex gap-4 items-center justify-center">
+        <div className="hidden md:flex gap-4 items-center justify-center">
           <BellIcon className="cursor-pointer" onClick={()=>{navigate("/settings")}}/>
-          <img src={profile} alt="" className="h-8 cursor-pointer" onClick={()=>{navigate("/profile")}} />
+          <div className="relative"
+            onMouseEnter={() => setShowListPopup(true)}
+            onMouseLeave={() => setShowListPopup(false)}>
+            <img src={user.profileImage ? `http://localhost:4000/${user.profileImage}` : profile} alt="" className="h-8 cursor-pointer" />
+            <ListPopup
+            showListPopup={showListPopup}/>
+          </div>
         </div>
       </div>
-      <div className="flex gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         {/* left banner */}
-        <div style={{ backgroundImage: `url(${banner})`,backgroundSize: "100% 100%",backgroundPosition: "center" }} className="h-72 bg-center rounded-lg text-white w-170 overflow-hidden px-8 py-4 flex flex-col items-start justify-evenly">
-          <h2 className="text-2xl ">Start a new Mock Interview</h2>
-          <p className="max-w-80 text-lg text-white/80">Get AI-generated questions and personalised feedback</p>
+        <div style={{ backgroundImage: `url(${banner})`,backgroundSize: "cover",backgroundRepeat: "no-repeat",backgroundPosition: "center" }} 
+            className="h-72 bg-center rounded-lg text-white w-full md:w-200 overflow-hidden px-8 py-4 flex flex-col items-start justify-evenly">
+          <h2 className="text-2xl font-semibold">Start a new Mock Interview</h2>
+          <p className="max-w-[70%] md:max-w-80 text-lg text-white/80">Get AI-generated questions and personalised feedback</p>
           <div 
             className="bg-white/90 text-blue-600 px-4 py-2 rounded-md text-xl w-fit flex items-center font-semibold justify-center gap-2 cursor-pointer hover:bg-white hover:scale-105 active:scale-95 transition-all duration-200" 
             onClick={()=>{navigate("/interview",)}}>

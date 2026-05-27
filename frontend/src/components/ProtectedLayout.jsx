@@ -18,9 +18,9 @@ const ProtectedLayout = () => {
     }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       <Sidebar />
-      <main className="flex-1 p-2 bg-[#eaedf251] pl-66">
+      <main className="flex-1 p-2 bg-[#eaedf251] md:pl-66">
         <Outlet />
       </main>
     </div>
