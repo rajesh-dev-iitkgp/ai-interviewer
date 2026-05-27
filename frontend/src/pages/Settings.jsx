@@ -11,7 +11,7 @@ const Settings = () => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   return (
-    <div className="bg-[#f5f7fb] p-4 flex flex-col gap-4">
+    <div className="bg-[#f5f7fb] p-2 md:p-4 flex flex-col gap-4">
       {/* Header */}
       <div className="flex flex-col items-start justify-center gap-2">
         <h1 className="font-bold text-4xl">Settings</h1>

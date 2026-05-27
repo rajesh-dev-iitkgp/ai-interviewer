@@ -62,7 +62,7 @@ const RecentInterviewCard = () => {
         <p className="font-semibold">{interview.role || "Software Engineer"}</p>
         <p className="hidden md:block font-semibold bg-indigo-100 rounded-md p-1">{interview.experienceLevel}</p>
         <p className="hidden md:block font-semibold text-gray-500">{interview.createdAt.split("T")[0]}</p>
-        <p className="text-green-600 font-bold text-xl">{interview.totalScore}/{interview.questions.length*10}</p>
+        <p className="text-green-600 font-bold text-xl">{interview.totalScore || 0}/{interview.questions.length*10}</p>
       </div>
     </div>
   )

@@ -9,25 +9,31 @@ const Performance = ({performance}) => {
         </h2>
 
         <ResponsiveContainer width="100%" height={300}>
-
-          <BarChart data={performance}>
-
+          <BarChart
+            data={performance}
+            layout="vertical"
+          >
             <CartesianGrid strokeDasharray="3 3" />
 
-            <XAxis dataKey="role" />
+            <XAxis
+              type="number"
+              domain={[0, 100]}
+            />
 
-            <YAxis domain={[0, 100]} />
+            <YAxis
+              type="category"
+              dataKey="role"
+              width={140}
+            />
 
             <Tooltip />
 
             <Bar
               dataKey="score"
               fill="#5B4CF0"
-              radius={[8, 8, 0, 0]}
+              radius={[0, 8, 8, 0]}
             />
-
           </BarChart>
-
         </ResponsiveContainer>
       </div>
     </div>

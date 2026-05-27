@@ -90,7 +90,7 @@ const Login = () => {
 
         {/* LEFT SECTION */}
 
-        <div className="w-1/2 overflow-hidden">
+        <div className="hidden md:block w-1/2 overflow-hidden">
 
           <img
             src={currState === "login" ? login : register}
@@ -103,7 +103,7 @@ const Login = () => {
 
         {/* RIGHT SECTION */}
 
-        <div className="w-1/2 flex flex-col justify-center px-10 py-8 bg-white">
+        <div className="w-full md:w-1/2 flex flex-col justify-center px-6 py-4 md:px-10 md:py-8 bg-white">
 
           {/* HEADING */}
 

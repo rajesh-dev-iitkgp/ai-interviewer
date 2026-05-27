@@ -20,6 +20,9 @@ const getOverview = async (req,res)=>{
         }
 
         const normalizedScores = interviews.map(interview => {
+            if(!interview.totalScore){
+                return 0
+            }
             return (interview.totalScore / (interview.questions.length*10)) * 100;
         });
         const averagePercentage =normalizedScores.reduce((acc,curr)=>acc+curr,0)/ normalizedScores.length;
@@ -47,7 +50,7 @@ const getScoreProgress = async(req,res)=>{
             month:"short",
             day:"numeric",
         }),
-        score: interview.totalScore
+        score: interview.totalScore || 0
     }))
 
     return res.status(200).json({success:true,progress})
@@ -64,7 +67,8 @@ const getRolePerformance = async (req,res)=>{
         const roleMap ={}
 
         interviews.forEach(interview =>{
-            const {role,totalScore} = interview;
+            const {role} = interview;
+            const totalScore = interview.totalScore || 0;
             const percentage=(totalScore/(interview.questions.length*10))*100;
             
             if(!roleMap[role]){
