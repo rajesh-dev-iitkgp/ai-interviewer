@@ -4,6 +4,7 @@ import validator from "validator"
 import createToken from "../utils/createToken.js"
 import fs from "fs"
 import InterviewModel from "../models/interviewModel.js"
+import { resetToken} from "../utils/resetToken.js"
 
 const loginUser = async (req, res) => {
     try {
@@ -206,4 +207,29 @@ const deleteUser = async (req,res)=>{
     }
 }
 
-export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser, updatePassword, deleteUser }
+const forgetPassword = async (req,res)=>{
+    try {
+        const {email}= req.body
+
+        if(!email) {
+            return res.status(400).json({success:false,message:"Email is required"})
+        }
+
+        const user = await userModel.findOne({email})
+
+        if(!user) {
+            return res.status(400).json({success:false,message:"User not found"})
+        }
+
+        const newToken = resetToken(user._id)
+
+        const resetUrl = `http://localhost:5000/reset-password/${newToken}`
+        console.log(resetUrl)
+        return res.status(200).json({success:true,resetUrl})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,message:error.message})
+    }
+}
+
+export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser, updatePassword, deleteUser,forgetPassword }
