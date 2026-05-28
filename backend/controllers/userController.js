@@ -5,6 +5,7 @@ import createToken from "../utils/createToken.js"
 import fs from "fs"
 import InterviewModel from "../models/interviewModel.js"
 import { resetToken} from "../utils/resetToken.js"
+import jwt from "jsonwebtoken"
 
 const loginUser = async (req, res) => {
     try {
@@ -232,4 +233,33 @@ const forgetPassword = async (req,res)=>{
     }
 }
 
-export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser, updatePassword, deleteUser,forgetPassword }
+const resetPassword = async (req,res)=>{
+    try {
+        const {token}= req.params
+        const {password}= req.body
+
+        const decoded = jwt.verify(token,process.env.JWT_SECRET)
+        const user = await userModel.findById(decoded.id)
+
+        if(!user){
+            return res.status(400).json({success:false,message:"User not found"})
+        }
+
+        if(!validator.isStrongPassword(password)){
+            return res.status(400).json({success:false,message:"Password is not strong enough"})
+        }
+
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password,salt)
+        user.password = hashedPassword
+
+        await user.save()
+        res.status(200).json({success:true,message:"Password reset successfully"})
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success:false,message:error.message})
+    }
+}
+
+export { loginUser, registerUser, logoutUser, getCurrentUser, updateUser, updatePassword, deleteUser,forgetPassword,resetPassword }
