@@ -166,7 +166,7 @@ Built using the MERN Stack with AI integration.
 ---
 
 ## AI Integration
-- Gemini API / OpenAI API
+- Gemini API
 
 ---
 
@@ -235,7 +235,7 @@ GET    /api/user/me
 PUT    /api/user/update
 PUT    /api/user/update-password
 DELETE /api/user/delete
-POST   /api/user/forgot-password
+POST   /api/user/forget-password
 POST   /api/user/reset-password/:token
 ```
 
@@ -320,13 +320,9 @@ GET /api/analytics/feedback
 # Future Improvements
 
 - Voice-based Interviews
-- Video Interview Support
 - Resume Analyzer
 - Dark Mode
 - Leaderboard System
-- Real-time Coding Interviews
-- Multi-language Support
-- Interview Recording Playback
 
 ---
 
