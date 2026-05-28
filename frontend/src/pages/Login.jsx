@@ -6,12 +6,14 @@ import { useState, useContext } from "react";
 import { loginUser,registerUser } from "../services/authService";
 import { useNavigate, Navigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import ForgetPasswordPopup from "../components/ForgetPasswordPopup";
 
 const Login = () => {
 
     const [currState, setCurrState] = useState("login");
     const [showPassword, setShowPassword] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
+    const [showForgetPasswordPopup, setShowForgetPasswordPopup] = useState(false);
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -233,9 +235,15 @@ const Login = () => {
 
           }
 
-          {currState==="login" && 
+          {currState==="login" && <>
 
-            <p className="text-sm text-blue-800 cursor-pointer mb-8 font-semibold">Forgot Password?</p>
+            <p className="text-sm text-blue-800 cursor-pointer mb-8 font-semibold"
+            onClick={() => setShowForgetPasswordPopup(true)}>Forgot Password?</p>
+            <ForgetPasswordPopup
+              showForgetPasswordPopup={showForgetPasswordPopup}
+              setShowForgetPasswordPopup={setShowForgetPasswordPopup}/>
+
+          </>
 
           }
 
