@@ -30,6 +30,7 @@ Built using the MERN Stack with AI integration.
 - Automatic submission when timer ends
 - AI evaluation of answers
 - AI-generated feedback and scores
+- Download the pdf version of the feedback
 
 ---
 
@@ -59,6 +60,86 @@ Built using the MERN Stack with AI integration.
 - Loading State Handling
 
 ---
+
+# Screenshots
+
+## Home Page
+
+<p align="center">
+  <img src="./screenshots/home.png" width="700"/>
+</p>
+
+---
+
+## Register Page
+
+<p align="center">
+  <img src="./screenshots/register.png" width="700"/>
+</p>
+
+---
+
+## Interview Page
+
+<p align="center">
+  <img src="./screenshots/interview.png" width="700"/>
+</p>
+
+---
+
+## Interview Session
+
+<p align="center">
+  <img src="./screenshots/interview-session.png" width="700"/>
+</p>
+
+---
+
+## Result Page
+
+<p align="center">
+  <img src="./screenshots/result-page.png" width="700"/>
+</p>
+
+---
+
+## Question-wise Feedback
+
+<p align="center">
+  <img src="./screenshots/question-wise-feedback.png" width="700"/>
+</p>
+
+---
+
+## Analytics Dashboard
+
+<p align="center">
+  <img src="./screenshots/analytics.png" width="700"/>
+</p>
+
+---
+
+## Interview History
+
+<p align="center">
+  <img src="./screenshots/interview-history.png" width="700"/>
+</p>
+
+---
+
+## Profile Page
+
+<p align="center">
+  <img src="./screenshots/profile.png" width="700"/>
+</p>
+
+---
+
+## Settings Page
+
+<p align="center">
+  <img src="./screenshots/settings.png" width="700"/>
+</p>
 
 # Tech Stack
 
