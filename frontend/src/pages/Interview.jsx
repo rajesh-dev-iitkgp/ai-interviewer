@@ -32,6 +32,7 @@ const Interview = () => {
             navigate(`/interview/${interview._id}`,{replace:true});
         } catch (error) {
             console.log(error)
+            alert(error.response.data.message)
         }
         finally{
             setLoading(false);

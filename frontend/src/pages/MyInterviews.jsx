@@ -88,7 +88,7 @@ const MyInterviews = () => {
             </div>
           </div>
           <div>
-            <OverviewCard overview={overview} />
+            <OverviewCard overview={overview || {} } />
           </div>
       </div>
       {/* BOTTOM PART */}

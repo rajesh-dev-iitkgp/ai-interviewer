@@ -98,7 +98,7 @@ const Home = () => {
       
       <div>
         <p className="text-2xl font-semibold mb-4">Overview</p>
-        <OverviewCard overview={overview} />
+        <OverviewCard overview={overview || {}} />
       </div>
       <div>
         <RecentInterviewCard />

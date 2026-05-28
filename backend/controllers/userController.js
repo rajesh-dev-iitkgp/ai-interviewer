@@ -241,7 +241,7 @@ const forgetPassword = async (req,res)=>{
                 </a>
             `
         })
-        return res.status(200).json({success:true,message:"Reset link sent to your email"})
+        return res.status(200).json({success:true,message:"If an account exists, a reset link has been sent"})
     } catch (error) {
         console.log(error)
         res.status(500).json({success:false,message:error.message})
@@ -253,7 +253,12 @@ const resetPassword = async (req,res)=>{
         const {token}= req.params
         const {password}= req.body
 
-        const decoded = jwt.verify(token,process.env.JWT_SECRET)
+        const decoded = jwt.verify(token,process.env.RESET_PASSWORD_SECRET)
+
+        if(decoded.purpose !== "reset-password"){
+            return res.status(400).json({success:false,message:"Invalid token"})
+        }
+        
         const user = await userModel.findById(decoded.id)
 
         if(!user){

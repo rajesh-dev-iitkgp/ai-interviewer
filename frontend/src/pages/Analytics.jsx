@@ -76,7 +76,7 @@ const Analytics = () => {
       </div>
       {/* Overview */}
       <div>
-        <OverviewCard overview={overview} />
+        <OverviewCard overview={overview || {}} />
       </div>
       {/* Graphs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
