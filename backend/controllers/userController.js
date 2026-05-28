@@ -6,6 +6,7 @@ import fs from "fs"
 import InterviewModel from "../models/interviewModel.js"
 import { resetToken} from "../utils/resetToken.js"
 import jwt from "jsonwebtoken"
+import transporter from "../config/nodemailer.js"
 
 const loginUser = async (req, res) => {
     try {
@@ -225,8 +226,22 @@ const forgetPassword = async (req,res)=>{
         const newToken = resetToken(user._id)
 
         const resetUrl = `http://localhost:5173/reset-password/${newToken}`
-        console.log(resetUrl)
-        return res.status(200).json({success:true,resetUrl})
+        
+        await transporter.sendMail({
+            from:process.env.EMAIL_USER,
+            to:email,
+            subject:"Reset Password",
+            html:`
+                <h2>Reset Password</h2>
+
+                <p>Click the link below to reset your password:</p>
+
+                <a href="${resetUrl}">
+                    Reset Password
+                </a>
+            `
+        })
+        return res.status(200).json({success:true,message:"Reset link sent to your email"})
     } catch (error) {
         console.log(error)
         res.status(500).json({success:false,message:error.message})

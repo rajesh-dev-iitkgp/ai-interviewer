@@ -12,9 +12,9 @@ const ForgetPasswordPopup = ({showForgetPasswordPopup, setShowForgetPasswordPopu
             }
             const response = await forgetPassword({email})
             if(response.data.success) {
+                alert("Reset link has been sent to your email")
                 setShowForgetPasswordPopup(false)
-                console.log(response.data.resetUrl)
-                
+                console.log(response.data.resetUrl) 
             }
         }
         catch(error){
