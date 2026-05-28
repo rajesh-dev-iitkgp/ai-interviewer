@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { forgetPassword } from '../services/authService'
 
 const ForgetPasswordPopup = ({showForgetPasswordPopup, setShowForgetPasswordPopup}) => {
 
@@ -9,10 +10,16 @@ const ForgetPasswordPopup = ({showForgetPasswordPopup, setShowForgetPasswordPopu
                 alert('Please enter email')
                 return
             }
-            console.log(email)
+            const response = await forgetPassword({email})
+            if(response.data.success) {
+                setShowForgetPasswordPopup(false)
+                console.log(response.data.resetUrl)
+                
+            }
         }
         catch(error){
             console.log(error)
+            alert(error.response.data.message)
         }
     }
 

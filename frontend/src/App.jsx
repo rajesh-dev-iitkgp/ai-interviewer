@@ -10,6 +10,7 @@ import Settings from "./pages/Settings"
 import InterviewSession from "./pages/InterviewSession"
 import Result from "./pages/Result"
 import Feedback from "./pages/Feedback"
+import ResetPassword from "./pages/ResetPassword"
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         {/* protectedRoutes */}
         <Route element={<ProtectedLayout />}>
           <Route path="/" element={<Home />} />

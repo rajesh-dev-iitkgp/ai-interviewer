@@ -223,7 +223,7 @@ const forgetPassword = async (req,res)=>{
 
         const newToken = resetToken(user._id)
 
-        const resetUrl = `http://localhost:5000/reset-password/${newToken}`
+        const resetUrl = `http://localhost:5173/reset-password/${newToken}`
         console.log(resetUrl)
         return res.status(200).json({success:true,resetUrl})
     } catch (error) {

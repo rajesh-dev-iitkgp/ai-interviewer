@@ -35,4 +35,9 @@ const deleteUser = async ()=>{
     return response
 }
 
-export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser,updatePassword,deleteUser}
+const forgetPassword = async (data)=>{
+    const response = await api.post("/api/user/forget-password",data)
+    return response
+}
+
+export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser,updatePassword,deleteUser,forgetPassword}
