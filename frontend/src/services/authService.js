@@ -40,4 +40,9 @@ const forgetPassword = async (data)=>{
     return response
 }
 
-export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser,updatePassword,deleteUser,forgetPassword}
+const resetPassword = async (token,data)=>{
+    const response = await api.post(`/api/user/reset-password/${token}`,data)
+    return response
+}
+
+export {loginUser,registerUser,logoutUser,getCurrentUser,updateUser,updatePassword,deleteUser,forgetPassword,resetPassword}
